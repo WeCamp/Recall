@@ -10,7 +10,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Wecamp\\": "src/"}
+        "psr-4": {"Wecamp\\Recall\\": "src/Wecamp/Recall/"}
     },
     "require": {
         "silex/silex": "v1.2.1"

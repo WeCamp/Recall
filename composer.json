@@ -1,0 +1,18 @@
+{
+    "name": "wecamp/recall",
+    "description": "description_text",
+    "minimum-stability": "stable",
+    "license": "bsd",
+    "authors": [
+        {
+            "name": "author's name",
+            "email": "email@example.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Wecamp\\": "src/"}
+    },
+    "require": {
+        "silex/silex": "v1.2.1"
+    }
+}

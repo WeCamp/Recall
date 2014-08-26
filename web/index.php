@@ -11,6 +11,11 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 $app = new Silex\Application();
 $app['debug'] = true;
 
+// GitWrapper
+$app->register(new \Wecamp\Recall\Provider\GitWrapperServiceProvider(array(
+    'git_wrapper.home' => dirname(__FILE__) . '/../var/data'
+)));
+
 // Controller resolving
 $app['resolver'] = $app->share(function() use ($app) {
     return new \Wecamp\Recall\Frontend\Controller\ControllerResolver($app);

@@ -2,10 +2,12 @@
 
 namespace Wecamp\Recall\Controller;
 
-class TimelineController 
+class TimelineController
 {
+    use TemplateEnabled;
+
     public function listAction()
     {
-        return 'Hello!';
+        return $this->getTemplate()->render('timeline.html.twig');
     }
 } 

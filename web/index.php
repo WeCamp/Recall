@@ -1,5 +1,11 @@
 <?php
 
+// Static files workaround
+$filename = dirname(__FILE__).preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
+if (php_sapi_name() === 'cli-server' && is_file($filename)) {
+    return false;
+}
+
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 $app = new Silex\Application();
@@ -12,8 +18,15 @@ $app['resolver'] = $app->share(function() use ($app) {
 
 // Controllers
 $app['timeline.controller'] = $app->share(function() use ($app) {
-    return new \Wecamp\Recall\Controller\TimelineController();
+    $timelineController = new \Wecamp\Recall\Controller\TimelineController();
+    $timelineController->setTemplate($app['twig']);
+    return $timelineController;
 });
+
+// Views
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => dirname(__FILE__).'/../src/Wecamp/Recall/View',
+));
 
 // Routing
 $app->get('/', 'timeline.controller:listAction');

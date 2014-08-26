@@ -15,6 +15,7 @@
     "require": {
         "silex/silex": "v1.2.1",
         "cpliakas/git-wrapper": "v1.3.0",
-        "monolog/monolog": "v1.10.0"
+        "monolog/monolog": "v1.10.0",
+        "twig/twig": "v1.16.0"
     }
 }

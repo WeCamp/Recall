@@ -13,6 +13,8 @@
         "psr-4": {"Wecamp\\Recall\\": "src/Wecamp/Recall/"}
     },
     "require": {
-        "silex/silex": "v1.2.1"
+        "silex/silex": "v1.2.1",
+        "cpliakas/git-wrapper": "v1.3.0",
+        "monolog/monolog": "v1.10.0"
     }
 }

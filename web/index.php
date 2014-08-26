@@ -13,19 +13,19 @@ $app['debug'] = true;
 
 // Controller resolving
 $app['resolver'] = $app->share(function() use ($app) {
-    return new \Wecamp\Recall\Controller\ControllerResolver($app);
+    return new \Wecamp\Recall\Frontend\Controller\ControllerResolver($app);
 });
 
 // Controllers
 $app['timeline.controller'] = $app->share(function() use ($app) {
-    $timelineController = new \Wecamp\Recall\Controller\TimelineController();
+    $timelineController = new \Wecamp\Recall\Frontend\Controller\TimelineController();
     $timelineController->setTemplate($app['twig']);
     return $timelineController;
 });
 
 // Views
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => dirname(__FILE__).'/../src/Wecamp/Recall/View',
+    'twig.path' => dirname(__FILE__).'/../src/Wecamp/Recall/Frontend/View',
 ));
 
 // Routing

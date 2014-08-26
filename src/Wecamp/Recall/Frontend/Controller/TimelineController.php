@@ -1,6 +1,6 @@
 <?php
 
-namespace Wecamp\Recall\Controller;
+namespace Wecamp\Recall\Frontend\Controller;
 
 class TimelineController
 {

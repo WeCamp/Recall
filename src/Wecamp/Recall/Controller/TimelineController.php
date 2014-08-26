@@ -10,4 +10,4 @@ class TimelineController
     {
         return $this->getTemplate()->render('timeline.html.twig');
     }
-} 
+}

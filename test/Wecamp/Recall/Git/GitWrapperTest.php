@@ -43,7 +43,7 @@ class GitWrapperTest extends \PHPUnit_Framework_TestCase
 
         $recallGitWrapper = new GitWrapper($gitWrapper);
 
-        $returnValue = $recallGitWrapper->init();
+        $returnValue = $recallGitWrapper->init(false);
         $this->assertSame($recallGitWrapper, $returnValue);
     }
 
@@ -54,7 +54,7 @@ class GitWrapperTest extends \PHPUnit_Framework_TestCase
 
         $recallGitWrapper = new GitWrapper($gitWrapper);
 
-        $returnValue = $recallGitWrapper->init();
+        $returnValue = $recallGitWrapper->init(false);
         $this->assertSame($recallGitWrapper, $returnValue);
     }
 

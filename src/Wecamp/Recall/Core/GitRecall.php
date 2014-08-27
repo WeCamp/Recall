@@ -80,10 +80,13 @@ class GitRecall implements Recallable
     private function createFile(Entry $entry)
     {
         $dir = sprintf('%s/%s', $this->dataDir, $entry->getContext());
-        $result = mkdir($dir, 0755, true);
-
-        if ($result === false) {
-            throw new \RuntimeException(sprintf('Unable to create directory %s', $dir));
+        if(!is_dir($dir)) {
+            $result = @mkdir($dir, 0755, true);
+            if($result === false) {
+                if ($result === false) {
+                    throw new \RuntimeException(sprintf('Unable to create directory %s', $dir));
+                }
+            }
         }
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
@@ -103,7 +106,7 @@ class GitRecall implements Recallable
         $this->gitWrapper->setUser($user->getName(), $user->getEmail());
 
         $this->gitWrapper->add(sprintf('%s/%s.json', $entry->getContext(), $entry->getIdentifier()));
-        $this->gitWrapper->commit();
+        $this->gitWrapper->commit("What do you want, Mr. Quaid?");
     }
 
     /**

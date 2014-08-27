@@ -3,6 +3,7 @@
 namespace Wecamp\Recall\Frontend\Controller;
 
 use Wecamp\Recall\Fixture\Personal\Profile;
+use Wecamp\Recall\Core\Context;
 
 class TimelineController
 {
@@ -27,6 +28,9 @@ class TimelineController
                 'description' => 'Alice pulled a recipe',
             ),
         );
+
+        $profile->persist(new Context('Personal/Profile'));
+        print_r($profile);
 
         $vars = array(
             'name' => $data['name'],

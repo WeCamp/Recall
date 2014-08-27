@@ -2,6 +2,8 @@
 
 namespace Wecamp\Recall\Core;
 
+use Rhumsaa\Uuid\Uuid;
+
 /**
  * Identifier abstraction for a certain Entity
  *
@@ -16,8 +18,12 @@ class Identifier
     /**
      * @param string $value
      */
-    public function __construct($value)
+    public function __construct($value = null)
     {
+        // Generate a value iff none is given
+        if($value === null) {
+            $value = (string) Uuid::uuid4();
+        }
         $this->value = $value;
     }
 
@@ -27,5 +33,13 @@ class Identifier
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return string $value
+     */
+    public function __toString()
+    {
+        return $this->getValue();
     }
 }

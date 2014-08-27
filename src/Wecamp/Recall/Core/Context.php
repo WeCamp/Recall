@@ -28,4 +28,12 @@ class Context
     {
         return $this->name;
     }
+
+    /**
+     * @return string $name
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

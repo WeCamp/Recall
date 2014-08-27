@@ -27,7 +27,8 @@
         "silex/silex": "v1.2.1",
         "cpliakas/git-wrapper": "v1.3.0",
         "monolog/monolog": "v1.10.0",
-        "twig/twig": "v1.16.0"
+        "twig/twig": "v1.16.0",
+        "rhumsaa/uuid": "2.7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "4.2.2",

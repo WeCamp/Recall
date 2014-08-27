@@ -1,6 +1,7 @@
 <?php
 
 namespace Wecamp\Recall\Core;
+use Wecamp\Recall\Git\GitWrapper;
 
 /**
  * Class Fixture
@@ -24,9 +25,13 @@ abstract class Fixture
         return $this->data;
     }
 
-    public function persist()
+    public function persist(Context $context)
     {
-
+        $identifier = new Identifier();
+        $user = new User('Douglas Quaid', 'richter@rekall.com');
+        $entry = new Entry($context, $identifier, $this->getData());
+        $gitRecall = new GitRecall(new GitWrapper(new \GitWrapper\GitWrapper()), dirname(__FILE__) . '/../../../var/data');
+        $gitRecall->addEntity($entry, $user);
     }
 
     /**

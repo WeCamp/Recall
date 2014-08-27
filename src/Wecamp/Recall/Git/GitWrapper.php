@@ -12,14 +12,14 @@ class GitWrapper
     private $map = array();
 
     /**
-     * @var string
+     * @var GitWorkingCopy
      */
-    private $userName = '';
+    private $workingCopy;
 
     /**
-     * @var string
+     * @var bool
      */
-    private $userEmail = '';
+    private $isUserSetOnWorkingCopy = false;
 
     /**
      * @param \GitWrapper\GitWrapper $wrapper
@@ -35,8 +35,8 @@ class GitWrapper
      */
     public function setUser($name, $email)
     {
-        $this->userName = $name;
-        $this->userEmail = $email;
+        $this->setUserOnWorkingCopy($name, $email);
+        $this->isUserSetOnWorkingCopy = true;
     }
 
     /**
@@ -44,11 +44,16 @@ class GitWrapper
      * @param array $arguments
      * @return mixed
      * @throws \BadMethodCallException
+     * @throws \RuntimeException
      */
     public function __call($method, array $arguments)
     {
         if (!isset($this->map[$method])) {
             throw new \BadMethodCallException(sprintf('Unknown method %s()', $method));
+        }
+
+        if ($this->map[$method] instanceof GitWorkingCopy && !$this->isUserSetOnWorkingCopy) {
+            throw new \RuntimeException('User not set on working copy yet');
         }
 
         if ($arguments) {
@@ -58,7 +63,6 @@ class GitWrapper
         }
 
         if ($returnValue instanceof GitWorkingCopy) {
-            $this->setUserOnWorkingCopy($returnValue);
             $this->defineWorkingCopyInMap($returnValue);
             return $this;
         }
@@ -144,11 +148,17 @@ class GitWrapper
     }
 
     /**
-     * @param GitWorkingCopy $workingCopy
+     * @param string $name
+     * @param string $email
+     * @throws \RuntimeException
      */
-    private function setUserOnWorkingCopy(GitWorkingCopy $workingCopy)
+    private function setUserOnWorkingCopy($name, $email)
     {
-        $workingCopy->config('user.name', $this->userName);
-        $workingCopy->config('user.email', $this->userEmail);
+        if (!$this->workingCopy) {
+            throw new \RuntimeException('Working copy not opened yet');
+        }
+
+        $this->workingCopy->config('user.name', $name);
+        $this->workingCopy->config('user.email', $email);
     }
 }

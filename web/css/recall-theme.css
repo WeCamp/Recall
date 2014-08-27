@@ -9,3 +9,12 @@
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
 }
+
+.timeline .list-group-item-heading {
+    display: inline-block;
+}
+
+.timeline .list-group-item-date {
+    float: right;
+    color: #777777;
+}

@@ -36,21 +36,14 @@
 
             <div class="col-sm-9 col-md-10 main">
                 <h1 class="page-header">Timeline</h1>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr><th>Description</th><th>When</th></tr>
-                        </thead>
-
-                        <tbody>
-                            {% for event in timeline %}
-                            <tr>
-                                <td>{{ event.description }}</td>
-                                <td>{{ event.timestamp|date('d/m/Y') }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <div class="list-group timeline">
+                    {% for event in timeline %}
+                    <a href="/event/{{ event.eventIdentifier }}" class="list-group-item">
+                        <h4 class="list-group-item-heading">{{ event.description }}</h4>
+                        <span class="list-group-item-date">{{ event.timestamp|date('d/m/Y') }}</span>
+                        <p class="list-group-item-text">By {{ event.user.name }}</p>
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>

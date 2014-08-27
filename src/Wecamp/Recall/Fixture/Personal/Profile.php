@@ -3,6 +3,7 @@
 namespace Wecamp\Recall\Fixture\Personal;
 
 use Wecamp\Recall\Core\Fixture;
+use Wecamp\Recall\Core\Identifier;
 
 /**
  * Class Profile describes the personal information about the owner of the data
@@ -11,6 +12,14 @@ use Wecamp\Recall\Core\Fixture;
  */
 class Profile extends Fixture
 {
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setIdentifier(new Identifier('personal'));
+    }
     /**
      * Returns the personal information struct
      *

@@ -10,10 +10,12 @@ use Wecamp\Recall\Git\GitWrapper;
  */
 abstract class Fixture
 {
+    protected $identifier;
     protected $data;
 
     public function __construct($type = 'Json')
     {
+        $this->identifier = new Identifier();
         $this->data = Data::factory($type, $this->getStruct());
     }
 
@@ -25,15 +27,27 @@ abstract class Fixture
         return $this->data;
     }
 
-    public function persist(Context $context)
+    /**
+     * @param Identifier $identifier
+     */
+    public function setIdentifier(Identifier $identifier)
     {
-        $identifier = new Identifier();
-        $user = new User('Douglas Quaid', 'richter@rekall.com');
-        $entry = new Entry($context, $identifier, $this->getData());
-        $gitdir = dirname(__FILE__) . '/../../../../var/data';
+        $this->identifier = $identifier;
+    }
 
-        $gitRecall = new GitRecall(new GitWrapper(new \GitWrapper\GitWrapper()), $gitdir);
-        $gitRecall->addEntity($entry, $user);
+    /**
+     * @return Identifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    public function persist(Context $context, GitRecall $gitRecall)
+    {
+        $user = new User('Douglas Quaid', 'richter@rekall.com');
+        $entry = new Entry($context, $this->getIdentifier(), $this->getData());
+        $gitRecall->addEntry($entry, $user);
     }
 
     /**

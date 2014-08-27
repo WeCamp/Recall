@@ -80,7 +80,7 @@ abstract class Data implements Serializable, \ArrayAccess, \Countable
 
         $object = null;
         if(class_exists($class)) {
-            $object = new $class($data);
+            $object = new $class(json_encode($data));
         }
 
         if($object === null) {

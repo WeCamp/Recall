@@ -22,10 +22,10 @@ class Identifier
     }
 
     /**
-     * @return string $name
+     * @return string $value
      */
-    public function getName()
+    public function getValue()
     {
-        return $this->name;
+        return $this->value;
     }
 }

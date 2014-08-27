@@ -6,7 +6,7 @@ namespace Wecamp\Recall\Core;
  * Context is applied as a form of a 'namespace'.
  * Too bad PHP has a reserved keyword for somewhat the same purpose.
  */
-final class Context
+class Context
 {
     /**
      * @var string $name

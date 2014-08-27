@@ -29,27 +29,15 @@ class TimelineController
         );
         $profileData = $profile->getData();
 
-        $timeline = array(
-            array(
-                'timestamp' => 1409068419,
-                'description' => 'Bob added a recipe',
-            ),
-            array(
-                'timestamp' => 1409068419,
-                'description' => 'Alice verified a recipe',
-            ),
-            array(
-                'timestamp' => 1409068419,
-                'description' => 'Alice pulled a recipe',
-            ),
-        );
+        $timeline = $this->recall->recallTimeline();
+        $events = $timeline->getEvents();
 
         $vars = array(
             'name' => $profileData['name'],
             'gender' => $profileData['gender'],
             'age' => $profileData['age'],
             'professionalGroup' => $profileData['professionalGroup'],
-            'timeline' => $timeline,
+            'timeline' => $events,
         );
         return $this->getTemplate()->render('timeline.html.twig', $vars);
     }

@@ -66,7 +66,10 @@ class GitRecall implements Recallable
      */
     public function recallTimeline(Context $context = null)
     {
-        // TODO: Implement recallTimeline() method.
+        $log = $this->readLog($context);
+        $logEvents = $this->parseLog($log);
+
+        return $this->createTimeline($logEvents);
     }
 
     private function openWorkingCopy()
@@ -138,5 +141,89 @@ class GitRecall implements Recallable
         }
 
         $this->gitWrapper->checkout($version);
+    }
+
+    /**
+     * @param Context|null $context
+     * @return string
+     */
+    private function readLog(Context $context = null)
+    {
+        $this->gitWrapper->log('--name-status');
+
+        return $this->gitWrapper->getOutput();
+    }
+
+    /**
+     * @param string $log
+     * @return array
+     */
+    private function parseLog($log)
+    {
+        $events = array();
+
+        foreach (preg_split('/(?:^|\n)commit /', $log, -1, PREG_SPLIT_NO_EMPTY) as $event) {
+            preg_match('/^(.+?)\n/', $event, $m);
+            $commit = $m[1];
+
+            preg_match('/Date: +(.+?)\n/', $event, $m);
+            $date = $m[1];
+
+            preg_match('/Author: +(.+?) <(.+?)>/', $event, $m);
+            $name = $m[1];
+            $email = $m[2];
+
+            preg_match('/\n\n +(.+?)\n\n/', $event, $m);
+            $message = $m[1];
+
+            preg_match('/\n([AM])\t(.+?)\n/', $event, $m);
+            $action = $m[1];
+            $file = $m[2];
+
+            $events[] = array(
+                'commit' => $commit,
+                'date' => $date,
+                'user_name' => $name,
+                'user_email' => $email,
+                'message' => $message,
+                'action' => $action,
+                'file' => $file
+            );
+        }
+
+        return $events;
+    }
+
+    /**
+     * @param array $logEvents
+     * @return Timeline
+     */
+    private function createTimeline(array $logEvents)
+    {
+        $events = array();
+
+        foreach ($logEvents as $logEvent) {
+            if (!preg_match('|^(.+)/(.+?)\.json$|', $logEvent['file'], $m)) {
+                continue;
+            }
+
+            $context = new Context($m[1]);
+            $identifier = new Identifier($m[2]);
+
+            $date = new \DateTime($logEvent['date']);
+
+            $user = new User($logEvent['user_name'], $logEvent['user_email']);
+
+            $events[] = new Event(
+                $logEvent['commit'],
+                $logEvent['message'],
+                $user,
+                $date->getTimestamp(),
+                $context,
+                $identifier
+            );
+        }
+
+        return new Timeline($events);
     }
 }

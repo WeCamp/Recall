@@ -10,37 +10,44 @@ namespace Wecamp\Recall\Core;
  *
  * @package Wecamp\Recall\Core
  */
-class Timeline implements \ArrayAccess, \Traversable, \Countable
+class Timeline implements \ArrayAccess, \Iterator, \Countable
 {
     /**
-     * @var Entry[] $entries
+     * @var Event[] $events
      */
-    protected $entries = array();
+    protected $events = array();
 
     /**
-     * @param Entry[] $entries
+     * @var int
      */
-    public function __construct($entries = array())
+    private $position = 0;
+
+    /**
+     * @param Event[] $events
+     */
+    public function __construct($events = array())
     {
-        foreach($entries as $entry) {
-            $this->addEntry($entry);
+        foreach($events as $event) {
+            $this->addEvent($event);
         }
+
+
     }
 
     /**
-     * @param Entry $entry
+     * @param Event $event
      */
-    public function addEntry(Entry $entry)
+    public function addEvent(Event $event)
     {
-        $this->entries[] = $entry;
+        $this->events[] = $event;
     }
 
     /**
-     * @return Entry[] $entries
+     * @return Event[] $events
      */
-    public function getEntries()
+    public function getEvents()
     {
-        return $this->entries;
+        return $this->events;
     }
 
     /**
@@ -54,7 +61,7 @@ class Timeline implements \ArrayAccess, \Traversable, \Countable
      */
     public function count()
     {
-        return sizeof($this->entries);
+        return sizeof($this->events);
     }
 
     /**
@@ -71,7 +78,7 @@ class Timeline implements \ArrayAccess, \Traversable, \Countable
      */
     public function offsetExists($offset)
     {
-        return isset($this->entries[$offset]);
+        return isset($this->events[$offset]);
     }
 
     /**
@@ -85,7 +92,7 @@ class Timeline implements \ArrayAccess, \Traversable, \Countable
      */
     public function offsetGet($offset)
     {
-        return $this->offsetExists($offset) ? $this->entries[$offset] : null;
+        return $this->offsetExists($offset) ? $this->events[$offset] : null;
     }
 
     /**
@@ -102,7 +109,7 @@ class Timeline implements \ArrayAccess, \Traversable, \Countable
      */
     public function offsetSet($offset, $value)
     {
-        $this->entries[$offset] = $value;
+        $this->events[$offset] = $value;
     }
 
     /**
@@ -116,6 +123,62 @@ class Timeline implements \ArrayAccess, \Traversable, \Countable
      */
     public function offsetUnset($offset)
     {
-        unset($this->entries[$offset]);
+        unset($this->events[$offset]);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Return the current element
+     * @link http://php.net/manual/en/iterator.current.php
+     * @return mixed Can return any type.
+     */
+    public function current()
+    {
+        return isset($this->events[$this->position]) ? $this->events[$this->position] : null;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Move forward to next element
+     * @link http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     */
+    public function next()
+    {
+        $this->position++;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Return the key of the current element
+     * @link http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     */
+    public function key()
+    {
+        return $this->position;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Checks if current position is valid
+     * @link http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     * Returns true on success or false on failure.
+     */
+    public function valid()
+    {
+        return isset($this->events[$this->position]);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Rewind the Iterator to the first element
+     * @link http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     */
+    public function rewind()
+    {
+        $this->position = 0;
     }
 }

@@ -29,17 +29,37 @@ class Event
     protected $description;
 
     /**
+     * @var Context $entryContext
+     */
+    protected $entryContext;
+
+    /**
+     * @var Identifier $entryIdentifier
+     */
+    protected $entryIdentifier;
+
+    /**
      * @param string $eventIdentifier
      * @param string $description
-     * @param User   $user
-     * @param int    $timestamp
+     * @param User $user
+     * @param int $timestamp
+     * @param Context $entryContext
+     * @param Identifier $entryIndetifier
      */
-    public function __construct($eventIdentifier, $description, User $user, $timestamp)
-    {
+    public function __construct(
+        $eventIdentifier,
+        $description,
+        User $user,
+        $timestamp,
+        Context $entryContext,
+        Identifier $entryIndetifier
+    ) {
         $this->eventIdentifier = $eventIdentifier;
         $this->timestamp = $timestamp;
         $this->user = $user;
         $this->description = $description;
+        $this->entryContext = $entryContext;
+        $this->entryIdentifier = $entryIndetifier;
     }
 
     /**
@@ -72,5 +92,21 @@ class Event
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return Context
+     */
+    public function getEntryContext()
+    {
+        return $this->entryContext;
+    }
+
+    /**
+     * @return Identifier
+     */
+    public function getEntryIdentifier()
+    {
+        return $this->entryIdentifier;
     }
 }

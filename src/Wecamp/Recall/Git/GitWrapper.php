@@ -12,6 +12,11 @@ class GitWrapper
     private $map = array();
 
     /**
+     * @var array
+     */
+    private $mustHaveUserMap = array();
+
+    /**
      * @var GitWorkingCopy
      */
     private $workingCopy;
@@ -27,6 +32,7 @@ class GitWrapper
     public function __construct(\GitWrapper\GitWrapper $wrapper)
     {
         $this->defineWrapperInMap($wrapper);
+        $this->defineMustHaveUserMap();
     }
 
     /**
@@ -52,7 +58,7 @@ class GitWrapper
             throw new \BadMethodCallException(sprintf('Unknown method %s()', $method));
         }
 
-        if ($this->map[$method] instanceof GitWorkingCopy && !$this->isUserSetOnWorkingCopy) {
+        if (in_array($method, $this->mustHaveUserMap, true) && !$this->isUserSetOnWorkingCopy) {
             throw new \RuntimeException('User not set on working copy yet');
         }
 
@@ -146,6 +152,14 @@ class GitWrapper
         $this->map['show'] = $workingCopy;
         $this->map['status'] = $workingCopy;
         $this->map['tag'] = $workingCopy;
+    }
+
+    private function defineMustHaveUserMap()
+    {
+        $this->mustHaveUserMap = array(
+            'add',
+            'commit'
+        );
     }
 
     /**

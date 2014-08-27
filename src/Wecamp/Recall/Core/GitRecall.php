@@ -35,7 +35,7 @@ class GitRecall implements Recallable
      * @param  User $user
      * @return Entry
      */
-    public function addEntity(Entry $entry, User $user)
+    public function addEntry(Entry $entry, User $user)
     {
         $this->createFile($entry);
         $this->commitFile($entry, $user);
@@ -49,7 +49,7 @@ class GitRecall implements Recallable
      * @param  string|null $version
      * @return Entry
      */
-    public function getEntity(Context $context, Identifier $identifier, $version = null)
+    public function getEntry(Context $context, Identifier $identifier, $version = null)
     {
         $this->checkoutVersion($version);
         return $this->readFile($context, $identifier);

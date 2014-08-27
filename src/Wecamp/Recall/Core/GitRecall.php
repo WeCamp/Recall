@@ -129,6 +129,10 @@ class GitRecall implements Recallable
      */
     private function checkoutVersion($version)
     {
-        // TODO: Implement this!
+        if (!$version) {
+            $version = 'HEAD';
+        }
+
+        $this->gitWrapper->checkout($version);
     }
 }

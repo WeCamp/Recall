@@ -12,7 +12,7 @@ class GitWrapperServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['recall_git_wrapper.class'] = 'Recall\Git\GitWrapper';
+        $app['recall_git_wrapper.class'] = 'Wecamp\Recall\Git\GitWrapper';
 
         $app['recall_git_wrapper'] = $app->share(
             function ($app) {

@@ -16,7 +16,7 @@ class Profile extends Fixture
      *
      * @return array
      */
-    public function getStruct()
+    protected function getStruct()
     {
         return array(
             'name' => 'Fred',

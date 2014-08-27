@@ -2,7 +2,7 @@
 
 namespace Wecamp\Recall\Fixture\Personal;
 
-use Fixture;
+use Wecamp\Recall\Core\Fixture;
 
 /**
  * Class Profile describes the personal information about the owner of the data
@@ -21,7 +21,7 @@ class Profile extends Fixture
         return array(
             'name' => 'Fred',
             'age' => 26,
-            'gender' => 'male',
+            'gender' => 'Male',
             'professionalGroup' => 'Tester in a technical team'
         );
     }

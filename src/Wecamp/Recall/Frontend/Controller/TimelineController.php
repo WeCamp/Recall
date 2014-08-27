@@ -13,7 +13,7 @@ class TimelineController
         $profile = new Profile();
         $data = $profile->getData();
 
-        $data['timeline'] = array(
+        $timeline = array(
             array(
                 'timestamp' => 1409068419,
                 'description' => 'Bob added a recipe',
@@ -28,6 +28,13 @@ class TimelineController
             ),
         );
 
-        return $this->getTemplate()->render('timeline.html.twig', $data);
+        $vars = array(
+            'name' => $data['name'],
+            'gender' => $data['gender'],
+            'age' => $data['age'],
+            'professionalGroup' => $data['professionalGroup'],
+            'timeline' => $timeline,
+        );
+        return $this->getTemplate()->render('timeline.html.twig', $vars);
     }
 }

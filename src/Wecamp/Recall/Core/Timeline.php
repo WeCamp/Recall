@@ -85,7 +85,7 @@ class Timeline implements \ArrayAccess, \Traversable, \Countable
      */
     public function offsetGet($offset)
     {
-        return $this->offsetExists($this->entries[$offset]) ? $this->entries[$offset] : null;
+        return $this->offsetExists($offset) ? $this->entries[$offset] : null;
     }
 
     /**

@@ -43,7 +43,7 @@ abstract class Fixture
         return $this->identifier;
     }
 
-    public function persist(Context $context, GitRecall $gitRecall)
+    public function persist(Context $context, Recallable $gitRecall)
     {
         $user = new User('Douglas Quaid', 'richter@rekall.com');
         $entry = new Entry($context, $this->getIdentifier(), $this->getData());

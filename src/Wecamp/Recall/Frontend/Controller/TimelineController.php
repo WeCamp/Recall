@@ -50,9 +50,9 @@ class TimelineController
         );
 
         $vars = array(
-            'name' => $profileData['name'],
-            'gender' => $profileData['gender'],
-            'age' => $profileData['age'],
+            'name' => $profileData['data']['name'],
+            'gender' => $profileData['data']['gender'],
+            'age' => $profileData['data']['age'],
             'professionalGroup' => $profileData['professionalGroup'],
             'timeline' => $timeline,
         );

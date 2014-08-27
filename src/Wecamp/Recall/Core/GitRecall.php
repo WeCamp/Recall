@@ -94,7 +94,7 @@ class GitRecall implements Recallable
         }
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
-        $result = file_put_contents($file, json_encode($entry));
+        $result = file_put_contents($file, json_encode($entry->getData()));
 
         if ($result === false) {
             throw new \RuntimeException(sprintf('Unable to write file %s', $file));
@@ -107,10 +107,11 @@ class GitRecall implements Recallable
      */
     private function commitFile(Entry $entry, User $user)
     {
-        $this->gitWrapper->setUser($user->getName(), $user->getEmail());
-
-        $this->gitWrapper->add(sprintf('%s/%s.json', $entry->getContext(), $entry->getIdentifier()));
-        $this->gitWrapper->commit("What do you want, Mr. Quaid?");
+        if($this->gitWrapper->hasChanges()) {
+            $this->gitWrapper->setUser($user->getName(), $user->getEmail());
+            $this->gitWrapper->add(sprintf('%s/%s.json', $entry->getContext(), $entry->getIdentifier()));
+            $this->gitWrapper->commit("What do you want, Mr. Quaid?");
+        }
     }
 
     /**

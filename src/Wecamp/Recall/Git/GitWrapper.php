@@ -51,7 +51,11 @@ class GitWrapper
             throw new \BadMethodCallException(sprintf('Unknown method %s()', $method));
         }
 
-        $returnValue = call_user_func_array(array($this->map[$method], $method), $arguments);
+        if ($arguments) {
+            $returnValue = call_user_func_array(array($this->map[$method], $method), $arguments);
+        } else {
+            $returnValue = call_user_func(array($this->map[$method], $method));
+        }
 
         if ($returnValue instanceof GitWorkingCopy) {
             $this->setUserOnWorkingCopy($returnValue);

@@ -19,7 +19,7 @@ class Entry
     protected $identifier;
 
     /**
-     * @var string $data
+     * @var Serializable $data
      */
     protected $data;
 
@@ -28,18 +28,14 @@ class Entry
      *
      * @param Context $context
      * @param Identifier $identifier
-     * @param string $data
+     * @param \Serializable $data
      * @throws \DomainException
      */
-    public function __construct(Context $context, Identifier $identifier, $data)
+    public function __construct(Context $context, Identifier $identifier, \Serializable $data)
     {
         $this->context = $context;
         $this->identifier = $identifier;
         $this->data = $data;
-
-        if (!$data) {
-            throw new \DomainException("Don't fuck with your brain, pal. It ain't worth it.");
-        }
     }
 
     /**
@@ -59,7 +55,7 @@ class Entry
     }
 
     /**
-     * @return string $data
+     * @return Serializable $data
      */
     public function getData()
     {

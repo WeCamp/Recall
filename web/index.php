@@ -11,6 +11,11 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 $app = new Silex\Application();
 $app['debug'] = true;
 
+// Recall
+$app->register(new \Wecamp\Recall\Provider\RecallServiceProvider(array(
+    'recall.data_dir' => dirname(__FILE__) . '/../var/data/repo'
+)));
+
 // GitWrapper
 $app->register(new \Wecamp\Recall\Provider\GitWrapperServiceProvider(array(
     'git_wrapper.home' => dirname(__FILE__) . '/../var/data'

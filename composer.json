@@ -1,12 +1,20 @@
 {
     "name": "wecamp/recall",
-    "description": "description_text",
+    "description": "GitHun-4-Life",
     "minimum-stability": "stable",
     "license": "bsd",
     "authors": [
         {
-            "name": "author's name",
-            "email": "email@example.com"
+            "name": "Jeremy Coates"
+        },
+        {
+            "name": "Dennis de Greef"
+        },
+        {
+            "name": "Jasper Brouwer"
+        },
+        {
+            "name": "Pascal de Vink"
         }
     ],
     "autoload": {

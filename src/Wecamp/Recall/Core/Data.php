@@ -8,7 +8,7 @@ namespace Wecamp\Recall\Core;
  *
  * @package Wecamp\Recall\Core
  */
-abstract class Data implements \Serializable
+abstract class Data implements Serializable
 {
     /**
      * Constructor
@@ -66,4 +66,20 @@ abstract class Data implements \Serializable
      * @return void
      */
     abstract public function unserialize($serialized);
+
+    /**
+     * @param  string $type
+     * @param  mixed  $data
+     * @return Serializable
+     */
+    public static function factory($type, $data)
+    {
+        $class = __NAMESPACE__ . '\\' . $type;
+
+        if(class_exists($class)) {
+            $object = new $class($data);
+        }
+
+        return $object;
+    }
 }

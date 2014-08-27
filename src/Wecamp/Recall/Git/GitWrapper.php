@@ -63,6 +63,7 @@ class GitWrapper
         }
 
         if ($returnValue instanceof GitWorkingCopy) {
+            $this->storeWorkingCopy($returnValue);
             $this->defineWorkingCopyInMap($returnValue);
             return $this;
         }
@@ -145,6 +146,14 @@ class GitWrapper
         $this->map['show'] = $workingCopy;
         $this->map['status'] = $workingCopy;
         $this->map['tag'] = $workingCopy;
+    }
+
+    /**
+     * @param GitWorkingCopy $workingCopy
+     */
+    private function storeWorkingCopy(GitWorkingCopy $workingCopy)
+    {
+        $this->workingCopy = $workingCopy;
     }
 
     /**

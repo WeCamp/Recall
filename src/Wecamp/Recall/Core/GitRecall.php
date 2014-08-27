@@ -177,7 +177,8 @@ class GitRecall implements Recallable
             preg_match('/\n\n +(.+?)\n\n/', $event, $m);
             $message = $m[1];
 
-            preg_match('/\n([AM])\t(.+?)\n/', $event, $m);
+            preg_match('/\n([AMD])\t(.+?)\n/', $event, $m);
+
             $action = $m[1];
             $file = $m[2];
 

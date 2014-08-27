@@ -13,7 +13,20 @@ abstract class Fixture
 
     public function __construct($type = 'Json')
     {
-        $data = Data::factory($type, $this->getStruct());
+        $this->data = Data::factory($type, $this->getStruct());
+    }
+
+    /**
+     * @return Serializable
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function persist()
+    {
+
     }
 
     /**

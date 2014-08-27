@@ -41,7 +41,7 @@ class TimelineController
             'name' => $profileData['data']['name'],
             'gender' => $profileData['data']['gender'],
             'age' => $profileData['data']['age'],
-            'professionalGroup' => $profileData['professionalGroup'],
+            'professionalGroup' => $profileData['data']['professionalGroup'],
             'timeline' => $events,
         );
         return $this->getTemplate()->render('timeline.html.twig', $vars);

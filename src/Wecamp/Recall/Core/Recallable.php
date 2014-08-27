@@ -11,13 +11,13 @@ namespace Wecamp\Recall\Core;
 interface Recallable
 {
     /**
-     * Adds an Entity
+     * Adds an Entry
      *
-     * @param  Entity  $entity
+     * @param  Entry  $entity
      * @param  User    $user
-     * @return Entity
+     * @return Entry
      */
-    public function addEntity(Entity $entity, User $user);
+    public function addEntity(Entry $entity, User $user);
 
     /**
      * Returns an entity for a given Context located by it's identifier

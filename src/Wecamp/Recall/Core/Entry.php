@@ -19,7 +19,7 @@ class Entry
     protected $identifier;
 
     /**
-     * @var string $data;
+     * @var string $data
      */
     protected $data;
 
@@ -37,7 +37,7 @@ class Entry
         $this->identifier = $identifier;
         $this->data = $data;
 
-        if(empty($data)) {
+        if (!$data) {
             throw new \DomainException("Don't fuck with your brain, pal. It ain't worth it.");
         }
     }
@@ -65,7 +65,4 @@ class Entry
     {
         return $this->data;
     }
-
-
-
 }

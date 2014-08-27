@@ -28,6 +28,12 @@ class Event
      */
     protected $description;
 
+    /**
+     * @param string $eventIdentifier
+     * @param string $description
+     * @param User   $user
+     * @param int    $timestamp
+     */
     public function __construct($eventIdentifier, $description, User $user, $timestamp)
     {
         $this->eventIdentifier = $eventIdentifier;

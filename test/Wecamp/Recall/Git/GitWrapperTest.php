@@ -39,7 +39,6 @@ class GitWrapperTest extends \PHPUnit_Framework_TestCase
         $gitWrapper = m::mock('GitWrapper\GitWrapper');
         $gitWorkingCopy = new GitWorkingCopy($gitWrapper, 'data');
         $gitWrapper->shouldReceive('init')->times(1)->andReturn($gitWorkingCopy);
-        $gitWrapper->shouldReceive('run')->times(2);
 
         $recallGitWrapper = new GitWrapper($gitWrapper);
 
@@ -80,6 +79,8 @@ class GitWrapperTest extends \PHPUnit_Framework_TestCase
 
         $recallGitWrapper = new GitWrapper($gitWrapper);
         $recallGitWrapper->init(false);
+
+        $recallGitWrapper->setUser('Fred', 'fred@rekall.com');
 
         $returnValue = $recallGitWrapper->add(false);
 

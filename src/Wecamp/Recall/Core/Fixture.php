@@ -30,7 +30,9 @@ abstract class Fixture
         $identifier = new Identifier();
         $user = new User('Douglas Quaid', 'richter@rekall.com');
         $entry = new Entry($context, $identifier, $this->getData());
-        $gitRecall = new GitRecall(new GitWrapper(new \GitWrapper\GitWrapper()), dirname(__FILE__) . '/../../../var/data');
+        $gitdir = dirname(__FILE__) . '/../../../../var/data';
+
+        $gitRecall = new GitRecall(new GitWrapper(new \GitWrapper\GitWrapper()), $gitdir);
         $gitRecall->addEntity($entry, $user);
     }
 

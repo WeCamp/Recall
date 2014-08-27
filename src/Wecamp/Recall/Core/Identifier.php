@@ -24,7 +24,7 @@ class Identifier
         if($value === null) {
             $value = (string) Uuid::uuid4();
         }
-        $this->value = $value;
+        $this->value = trim($value, DIRECTORY_SEPARATOR);
     }
 
     /**

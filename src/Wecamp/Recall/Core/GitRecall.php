@@ -122,7 +122,7 @@ class GitRecall implements Recallable
     private function readFile(Context $context, Identifier $identifier)
     {
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $context, $identifier);
-        $rawData = file_get_contents($file);
+        $rawData = @file_get_contents($file);
 
         if ($rawData === false) {
             throw new \RuntimeException(sprintf('Unable to read file %s', $file));

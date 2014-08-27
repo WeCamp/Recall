@@ -5,6 +5,7 @@ namespace Wecamp\Recall\Frontend\Controller;
 use Wecamp\Recall\Core\Context;
 use Wecamp\Recall\Core\Identifier;
 use Wecamp\Recall\Core\Recallable;
+use Wecamp\Recall\Fixture\Personal\Profile;
 
 class TimelineController
 {
@@ -23,6 +24,10 @@ class TimelineController
 
     public function listAction()
     {
+        $profile = new Profile();
+        $profile->persist(new Context('personal'), $this->recall);
+
+
         $profile = $this->recall->getEntry(
             new Context('personal'),
             new Identifier('profile')

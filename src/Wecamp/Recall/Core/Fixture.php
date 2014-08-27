@@ -34,5 +34,5 @@ abstract class Fixture
      *
      * @return mixed
      */
-    abstract public function getStruct();
+    abstract protected function getStruct();
 }

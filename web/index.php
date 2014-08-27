@@ -28,7 +28,7 @@ $app['resolver'] = $app->share(function() use ($app) {
 
 // Controllers
 $app['timeline.controller'] = $app->share(function() use ($app) {
-    $timelineController = new \Wecamp\Recall\Frontend\Controller\TimelineController();
+    $timelineController = new \Wecamp\Recall\Frontend\Controller\TimelineController($app['recall']);
     $timelineController->setTemplate($app['twig']);
     return $timelineController;
 });

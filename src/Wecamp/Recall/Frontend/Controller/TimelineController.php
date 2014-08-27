@@ -2,17 +2,32 @@
 
 namespace Wecamp\Recall\Frontend\Controller;
 
-use Wecamp\Recall\Fixture\Personal\Profile;
 use Wecamp\Recall\Core\Context;
+use Wecamp\Recall\Core\Identifier;
+use Wecamp\Recall\Core\Recallable;
 
 class TimelineController
 {
     use TemplateEnabled;
 
+    /** @var Recallable */
+    private $recall;
+
+    /**
+     * @param Recallable $recall
+     */
+    public function __construct(Recallable $recall)
+    {
+        $this->recall = $recall;
+    }
+
     public function listAction()
     {
-        $profile = new Profile();
-        $data = $profile->getData();
+        $profile = $this->recall->getEntry(
+            new Context('personal'),
+            new Identifier('profile')
+        );
+        $profileData = $profile->getData();
 
         $timeline = array(
             array(
@@ -29,14 +44,11 @@ class TimelineController
             ),
         );
 
-        $profile->persist(new Context('Personal/Profile'));
-        print_r($profile);
-
         $vars = array(
-            'name' => $data['name'],
-            'gender' => $data['gender'],
-            'age' => $data['age'],
-            'professionalGroup' => $data['professionalGroup'],
+            'name' => $profileData['name'],
+            'gender' => $profileData['gender'],
+            'age' => $profileData['age'],
+            'professionalGroup' => $profileData['professionalGroup'],
             'timeline' => $timeline,
         );
         return $this->getTemplate()->render('timeline.html.twig', $vars);

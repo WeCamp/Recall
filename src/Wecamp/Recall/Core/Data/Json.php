@@ -32,6 +32,6 @@ class Json extends Data
      */
     public function unserialize($serialized)
     {
-        $this->setData(json_decode($serialized));
+        $this->setData(json_decode($serialized, true));
     }
 }

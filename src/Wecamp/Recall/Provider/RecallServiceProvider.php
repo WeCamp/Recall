@@ -13,7 +13,6 @@ class RecallServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['recall.class'] = 'Wecamp\Recall\Core\GitRecall';
-        $app['recall.data_dir'] = '';
 
         $app['recall'] = $app->share(
             function ($app) {

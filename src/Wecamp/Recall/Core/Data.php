@@ -14,15 +14,15 @@ abstract class Data implements Serializable, \ArrayAccess, \Countable
     /**
      * Constructor
      *
-     * @param $data
+     * @param string $data
      */
     public function __construct($data)
     {
-        $this->setData($data);
+        $this->unserialize($data);
     }
 
     /**
-     * @param mixed $data
+     * @param stdClass $data
      * @throws \DomainException
      */
     public function setData($data)
@@ -34,7 +34,7 @@ abstract class Data implements Serializable, \ArrayAccess, \Countable
     }
 
     /**
-     * @return mixed $data
+     * @return stdClass $data
      */
     public function getData()
     {

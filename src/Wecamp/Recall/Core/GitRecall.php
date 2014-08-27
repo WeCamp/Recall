@@ -2,6 +2,7 @@
 
 namespace Wecamp\Recall\Core;
 
+use Wecamp\Recall\Core\Data\Json;
 use Wecamp\Recall\Git\GitWrapper;
 
 class GitRecall implements Recallable
@@ -124,7 +125,7 @@ class GitRecall implements Recallable
             throw new \RuntimeException(sprintf('Unable to read file %s', $file));
         }
 
-        return new Entry($context, $identifier, $rawData);
+        return new Entry($context, $identifier, new Json($rawData));
     }
 
     /**

@@ -46,7 +46,7 @@
                             {% for event in timeline %}
                             <tr>
                                 <td>{{ event.description }}</td>
-                                <td>{{ event.timestamp }}</td>
+                                <td>{{ event.timestamp|date('d/m/Y') }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

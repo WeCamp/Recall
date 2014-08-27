@@ -17,17 +17,17 @@ interface Recallable
      * @param  User    $user
      * @return Entry
      */
-    public function addEntity(Entry $entity, User $user);
+    public function addEntry(Entry $entity, User $user);
 
     /**
-     * Returns an entity for a given Context located by it's identifier
+     * Returns an Entry for a given Context located by its identifier
      *
      * @param  Context    $context
      * @param  Identifier $identifier
      * @param  null       $version
-     * @return Entity
+     * @return Entry
      */
-    public function getEntity(Context $context, Identifier $identifier, $version = null);
+    public function getEntry(Context $context, Identifier $identifier, $version = null);
 
     /**
      * Recalls the whole timeline for a certain Context

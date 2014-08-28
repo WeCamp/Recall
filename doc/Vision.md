@@ -1,3 +1,5 @@
+[Index](../TOTAL.md) | [Next: User Stories](UserStories.md)
+
 #Vision for Recall#
 ##A project from team The Avengers##
 
@@ -33,3 +35,5 @@ areas of life:
 The principles of Decentralised Architecture with Centralised Aggregators emerged (how for example Facebook
 could subscribe to our data, instead of us parting with our data and Facebook deciding what happens to it)
 
+We decided, for the duration of the Wecamp timescale to focus on one single area of development, Healthcare.
+In turn that set us on the path to developing the [Personas](UserStories.md) to scope the project detail.

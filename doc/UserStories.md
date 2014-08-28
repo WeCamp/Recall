@@ -13,7 +13,8 @@ these discussions will hopefully be visible in the final codebase.
 ###Primary###
 *Scenario: Self*
 
->*Name:* **Douglas** (Quaid)  
+>![Douglas Quaid](../web/img/fred.png)  
+*Name:* **Douglas** (Quaid)  
 *Age:* 26  
 *Gender:* Male  
 *Professional Group:* Tester in a technical team (at Rekall)  

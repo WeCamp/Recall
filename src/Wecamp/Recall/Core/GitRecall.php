@@ -78,6 +78,22 @@ class GitRecall implements Recallable
 
     private function openWorkingCopy()
     {
+        if (!is_dir($this->dataDir)) {
+            if (@mkdir($this->dataDir, 0755, true) === false) {
+                throw new \RuntimeException(sprintf('Unable to create directory %s', $this->dataDir));
+            }
+
+            $this->gitWrapper->init($this->dataDir);
+
+            if (@touch($this->dataDir . '/README.md') === false) {
+                throw new \RuntimeException(sprintf('Unable to write file %s', $this->dataDir . '/README.md'));
+            }
+
+            $this->gitWrapper->setUser('Recall System', 'system@recall.com');
+            $this->gitWrapper->add('README.md');
+            $this->gitWrapper->commit('Added readme');
+        }
+
         $this->gitWrapper->workingCopy($this->dataDir);
     }
 
@@ -89,17 +105,14 @@ class GitRecall implements Recallable
     {
         $dir = sprintf('%s/%s', $this->dataDir, $entry->getContext());
         if (!is_dir($dir)) {
-            $result = @mkdir($dir, 0755, true);
-
-            if ($result === false) {
+            if (@mkdir($dir, 0755, true) === false) {
                 throw new \RuntimeException(sprintf('Unable to create directory %s', $dir));
             }
         }
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
-        $result = file_put_contents($file, json_encode($entry->getData()));
 
-        if ($result === false) {
+        if (@file_put_contents($file, json_encode($entry->getData())) === false) {
             throw new \RuntimeException(sprintf('Unable to write file %s', $file));
         }
     }

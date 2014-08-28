@@ -27,7 +27,7 @@ class Timeline implements \ArrayAccess, \Iterator, \Countable
      */
     public function __construct($events = array())
     {
-        foreach($events as $event) {
+        foreach ($events as $event) {
             $this->addEvent($event);
         }
 

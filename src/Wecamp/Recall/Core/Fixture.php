@@ -1,7 +1,6 @@
 <?php
 
 namespace Wecamp\Recall\Core;
-use Wecamp\Recall\Git\GitWrapper;
 
 /**
  * Class Fixture

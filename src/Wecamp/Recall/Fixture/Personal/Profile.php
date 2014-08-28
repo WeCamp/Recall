@@ -20,6 +20,7 @@ class Profile extends Fixture
         parent::__construct();
         $this->setIdentifier(new Identifier('profile'));
     }
+
     /**
      * Returns the personal information struct
      *

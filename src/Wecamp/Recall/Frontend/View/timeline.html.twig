@@ -6,51 +6,54 @@
 
     <title>Recall</title>
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="/css/recall-theme.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/recall-theme.css"/>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="#">Timeline</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-            <h3 class="text-muted">Recall</h3>
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#">Timeline</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">Recall</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <img src="http://placephant.com/150" alt="You!">
+
+            <div>
+                <h4>{{ name }}</h4>
+                <ul>
+                    <li>{{ gender }}</li>
+                    <li>{{ age }}</li>
+                    <li>{{ professionalGroup }}</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <img src="http://placephant.com/150" alt="You!">
-                <div>
-                    <h4>{{ name }}</h4>
-                    <ul>
-                        <li>{{ gender }}</li>
-                        <li>{{ age }}</li>
-                        <li>{{ professionalGroup }}</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="col-sm-9 col-md-10 main">
+            <h1 class="page-header">Timeline</h1>
 
-            <div class="col-sm-9 col-md-10 main">
-                <h1 class="page-header">Timeline</h1>
-                <div class="list-group timeline">
-                    {% for event in timeline %}
+            <div class="list-group timeline">
+                {% for event in timeline %}
                     <a href="/event/{{ event.eventIdentifier }}" class="list-group-item">
                         <h4 class="list-group-item-heading">{{ event.description }}</h4>
                         <span class="list-group-item-date">{{ event.timestamp|date('d/m/Y') }}</span>
+
                         <p class="list-group-item-text">By {{ event.user.name }}</p>
                     </a>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
-
     </div>
 
-    <script src="/js/jquery-2.1.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+</div>
+
+<script src="/js/jquery-2.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

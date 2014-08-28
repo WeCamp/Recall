@@ -84,7 +84,7 @@ class GitRecall implements Recallable
     private function createFile(Entry $entry)
     {
         $dir = sprintf('%s/%s', $this->dataDir, $entry->getContext());
-        if(!is_dir($dir)) {
+        if (!is_dir($dir)) {
             $result = @mkdir($dir, 0755, true);
 
             if ($result === false) {
@@ -106,7 +106,7 @@ class GitRecall implements Recallable
      */
     private function commitFile(Entry $entry, User $user)
     {
-        if($this->gitWrapper->hasChanges()) {
+        if ($this->gitWrapper->hasChanges()) {
             $this->gitWrapper->setUser($user->getName(), $user->getEmail());
             $this->gitWrapper->add(sprintf('%s/%s.json', $entry->getContext(), $entry->getIdentifier()));
             $this->gitWrapper->commit("What do you want, Mr. Quaid?");

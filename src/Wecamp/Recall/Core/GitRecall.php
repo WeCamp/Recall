@@ -283,53 +283,50 @@ class GitRecall implements Recallable
             if (preg_match('/^(.+?)\n/', $block, $m)) {
                 $commit = $m[1];
 
-                if (preg_match('/Date: +(.+?)\n/', $block, $m)) {
-                    $date = $m[1];
+                preg_match('/Date: +(.+?)\n/', $block, $m);
+                $date = $m[1];
 
-                    if(!preg_match('/Author: +(.+?) <(.+?)>/', $block, $m)) {
-                        //continue;
-                    }
-                    $name = $m[1];
-                    $email = $m[2];
+                preg_match('/Author: +(.+?) <(.+?)>/', $block, $m);
+                $name = $m[1];
+                $email = $m[2];
 
-                    if(!preg_match('/\n\n +(.+)\n\n/', $block, $m)) {
-                        continue;
-                    }
+                if(!preg_match('/\n\n +(.+)\n\n/', $block, $m)) {
+                    continue;
+                }
 
-                    $message = $m[1];
+                $message = $m[1];
 
-                    if(!preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $block, $m)) {
-                        //continue;
-                    }
-                    $action = $m[1];
-                    $file = $m[2];
+                if(!preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $block, $m)) {
+                    //continue;
+                }
+                $action = $m[1];
+                $file = $m[2];
 
-                    $insertions = 0;
-                    $deletions = 0;
+                $insertions = 0;
+                $deletions = 0;
 
-                    foreach ($logStatsBlocks as $statsBlock) {
-                        if (strpos($statsBlock, $commit) === 0) {
-                            if (preg_match('/(\d+) insertion/', $statsBlock, $m)) {
-                                $insertions = (int)$m[1];
-                            }
-                            if (preg_match('/(\d+) deletion/', $statsBlock, $m)) {
-                                $deletions = (int)$m[1];
-                            }
+                foreach ($logStatsBlocks as $statsBlock) {
+                    if (strpos($statsBlock, $commit) === 0) {
+                        if (preg_match('/(\d+) insertion/', $statsBlock, $m)) {
+                            $insertions = (int)$m[1];
+                        }
+                        if (preg_match('/(\d+) deletion/', $statsBlock, $m)) {
+                            $deletions = (int)$m[1];
                         }
                     }
-
-                    $events[] = array(
-                        'commit' => $commit,
-                        'date' => $date,
-                        'user_name' => $name,
-                        'user_email' => $email,
-                        'message' => $message,
-                        'action' => $action,
-                        'file' => $file,
-                        'insertions' => $insertions,
-                        'deletions' => $deletions
-                    );
                 }
+
+                $events[] = array(
+                    'commit' => $commit,
+                    'date' => $date,
+                    'user_name' => $name,
+                    'user_email' => $email,
+                    'message' => $message,
+                    'action' => $action,
+                    'file' => $file,
+                    'insertions' => $insertions,
+                    'deletions' => $deletions
+                );
             }
         }
 

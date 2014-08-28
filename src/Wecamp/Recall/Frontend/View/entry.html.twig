@@ -4,7 +4,10 @@
 
 {% block content %}
 
-    <h1 class="page-header">Entry {{ entry.identifier }}</h1>
+    <h1 class="page-header">
+        <a href="/" class="btn btn-default pull-right">Back</a>
+        {{ entry.identifier }}
+    </h1>
     <h4>{{ entry.context|split('/')|join(' / ') }} @ {{ event.identifier }}</h4>
 
     <table class="entry table table-bordered">
@@ -14,7 +17,7 @@
                     <th>{{ name }}</th>
 
                     {% if value is iterable %}
-                        {% if value|keys|first == 0 %}
+                        {% if value|keys|first is sameas(0) %}
 
                             <td class="no-padding">
                                 {% for listvalue in value %}

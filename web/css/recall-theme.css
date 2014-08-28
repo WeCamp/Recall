@@ -19,18 +19,36 @@
     color: #777777;
 }
 
-.page-header-right {
+.timeline .event-numbers {
     float: right;
-    font-size: 14px;
-    margin-top: 20px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.timeline .event-insertions {
+    color: #4cae4c;
+}
+
+.timeline .event-deletions {
+    color: #d43f3a;
 }
 
 .entry {
     margin: 50px 0 0;
 }
 
+.entry > tbody > tr > th {
+    min-width: 30%;
+}
+
 .entry .table {
     margin: 0;
+    table-layout: fixed;
+}
+
+.entry .table + .table > tbody > tr:first-child > td,
+.entry .table + .table > tbody > tr:first-child > th {
+    border-top: 3px dashed #ddd;
 }
 
 .entry .table > tbody > tr:first-child > td,

@@ -45,12 +45,14 @@ abstract class Fixture
     /**
      * @param Context $context
      * @param Recallable $gitRecall
+     * @param $description
+     * @return \Wecamp\Recall\Core\Entry
      */
-    public function persist(Context $context, Recallable $gitRecall)
+    public function persist(Context $context, Recallable $gitRecall, $description)
     {
         $user = new User('Douglas Quaid', 'richter@rekall.com');
         $entry = new Entry($context, $this->getIdentifier(), $this->getData());
-        $gitRecall->addEntry($entry, $user, "Fixture data");
+        return $gitRecall->addEntry($entry, $user, $description);
     }
 
     /**

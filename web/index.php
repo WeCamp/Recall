@@ -43,6 +43,11 @@ $app['api.push.controller'] = $app->share(function() use ($app) {
     return $eventController;
 });
 
+$app['api.pull.controller'] = $app->share(function() use ($app) {
+    $eventController = new \Wecamp\Recall\Api\Controller\PullController($app['recall']);
+    return $eventController;
+});
+
 // Views
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => dirname(__FILE__).'/../src/Wecamp/Recall/Frontend/View',
@@ -54,5 +59,7 @@ $app->get('/entry/{contextName}/{entryIdentifier}', 'entry.controller:displayAct
 
 // API routing
 $app->put('/api/push/{contextName}', 'api.push.controller:putAction');
+$app->get('/api/pull/{contextName}', 'api.pull.controller:getAction');
+$app->get('/api/pull/{contextName}/{entryIdentifier}', 'api.pull.controller:getAction');
 
 $app->run();

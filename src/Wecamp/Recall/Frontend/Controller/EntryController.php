@@ -50,7 +50,7 @@ class EntryController
 
         // render
         return $this->getTemplate()->render(
-            'entryDisplay.html.twig',
+            'entry.html.twig',
             array(
                 'profile' => $profileData['data'],
                 'event' => array('identifier' => $eventIdentifier),

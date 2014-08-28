@@ -4,7 +4,7 @@ namespace Wecamp\Recall\Fixture\Personal\Health\Medical;
 
 use Wecamp\Recall\Core\Fixture;
 
-class MedicalEntry extends Fixture
+class MedicalEntry1 extends Fixture
 {
 
     /**
@@ -15,8 +15,8 @@ class MedicalEntry extends Fixture
     protected function getStruct()
     {
         return [
-            "dateAndTime" => "2014-08-26 16:45:22 UTC-1",
-            "description" => "Visit to G.P.",
+            "dateAndTime" => "1988-04-04 13:37:00 UTC-1",
+            "description" => "Fred was born",
             "relatedWith" => [
                 [
                     "name" => "Bob",

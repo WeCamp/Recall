@@ -24,10 +24,6 @@ class PushRequestController
 
     public function listAction()
     {
-        // create profile
-        $profile = new Profile();
-        $profile->persist(new Context('personal'), $this->recall, "Profile created");
-
         // get profile
         $profile = $this->recall->getEntry(new Context('personal'), new Identifier('profile'));
         $profileData = $profile->getData();
@@ -43,8 +39,6 @@ class PushRequestController
                 'event' => $timeline->getEvents()[0]
             ];
         }
-
-        //echo '<pre>'; print_r($pushRequests); exit;
 
         // render
         return $this->getTemplate()->render(

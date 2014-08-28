@@ -34,7 +34,6 @@ class TimelineController
 
         // get timeline
         $timeline = $this->recall->recallTimeline();
-        //echo '<pre>'; print_r($this->recall->listChangeRequests());exit;
 
         // render
         return $this->getTemplate()->render(

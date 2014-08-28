@@ -114,7 +114,7 @@ class GitRecall implements Recallable
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
 
-        if (@file_put_contents($file, json_encode($entry->getData(), JSON_PRETTY_PRINT)) === false) {
+        if (@file_put_contents($file, json_encode($entry->getData()->getData(), JSON_PRETTY_PRINT)) === false) {
             throw new \RuntimeException(sprintf('Unable to write file %s', $file));
         }
     }

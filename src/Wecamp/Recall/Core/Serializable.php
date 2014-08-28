@@ -13,4 +13,9 @@ interface Serializable extends \Serializable
      * @param mixed $data
      */
     public function __construct($data);
+
+    /**
+     * @return mixed
+     */
+    public function getData();
 }

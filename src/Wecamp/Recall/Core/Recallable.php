@@ -41,8 +41,25 @@ interface Recallable
      */
     public function recallTimeline(Context $context = null, $branch = 'master');
 
+    /**
+     * @return string $uuid
+     */
     public function changeRequest();
+
+    /**
+     * @return string[]
+     */
     public function listChangeRequests();
+
+    /**
+     * @param $branch
+     * @return null
+     */
     public function acceptChangeRequest($branch);
+
+    /**
+     * @param $branch
+     * @return null
+     */
     public function denyChangeRequest($branch);
 }

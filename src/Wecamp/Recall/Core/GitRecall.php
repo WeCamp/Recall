@@ -61,6 +61,9 @@ class GitRecall implements Recallable
         return $this->readFile($context, $identifier);
     }
 
+    /**
+     * @return string $uuid
+     */
     public function changeRequest()
     {
         // Always branch from master
@@ -68,11 +71,17 @@ class GitRecall implements Recallable
         return $this->branch();
     }
 
+    /**
+     * @return \string[]
+     */
     public function listChangeRequests()
     {
         return $this->listBranches();
     }
 
+    /**
+     * @param string $branch
+     */
     public function acceptChangeRequest($branch)
     {
         $this->checkoutVersion(null);
@@ -80,6 +89,9 @@ class GitRecall implements Recallable
         $this->delete($branch);
     }
 
+    /**
+     * @param string $branch
+     */
     public function denyChangeRequest($branch)
     {
         $this->delete($branch);
@@ -106,6 +118,9 @@ class GitRecall implements Recallable
         return $this->createTimeline($logEvents);
     }
 
+    /**
+     * @return string $uuid
+     */
     private function branch()
     {
         $uuid = (string) \Rhumsaa\Uuid\Uuid::uuid4();
@@ -113,17 +128,26 @@ class GitRecall implements Recallable
         return $uuid;
     }
 
+    /**
+     * @param string $branch
+     */
     private function merge($branch)
     {
         $this->gitWrapper->merge($branch);
     }
 
+    /**
+     * @param string $branch
+     */
     private function delete($branch)
     {
         $this->checkoutVersion();
         $this->gitWrapper->branch($branch, array('D' => true));
     }
 
+    /**
+     * @return string[]
+     */
     private function listBranches()
     {
         $branches = $this->gitWrapper->getBranches()->fetchBranches();
@@ -135,6 +159,9 @@ class GitRecall implements Recallable
         return array_values($branches);
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     private function openWorkingCopy()
     {
         if (!is_dir($this->dataDir)) {
@@ -264,7 +291,6 @@ class GitRecall implements Recallable
                     }
                     $name = $m[1];
                     $email = $m[2];
-
                     if(!preg_match('/\n\n +(.+)\n\n/', $block, $m)) {
                         //continue;
                     }

@@ -13,12 +13,12 @@ these discussions will hopefully be visible in the final codebase.
 ###Primary###
 *Scenario: Self*
 
->![Douglas Quaid](../web/img/fred.png)  
+>![Douglas Quaid](../web/img/douglas.png)  
 *Name:* **Douglas** (Quaid)  
 *Age:* 26  
 *Gender:* Male  
 *Professional Group:* Tester in a technical team (at Rekall)  
-*Problem:* Work related stress. Fred has had some periods off (sick) from work due to stress. Fred feels
+*Problem:* Work related stress. Douglas has had some periods off (sick) from work due to stress. Douglas feels
 like he can't admit the stress problems at work.  
 He has been to the G.P. before and now has a second appointment and hopes to now get some medication to
 help with the symptoms.
@@ -32,9 +32,9 @@ help with the symptoms.
 *Gender:* Male  
 *Professional Group:* Community based doctor / G.P. / huisarts  
 *Scenario:* Local doctor in a practice with 4 other doctors and admin staff  
-*Achievement:* Bob has to prescribe a treatment for Fred, a prescription  
-*Action:* Bob is now seeing Fred for the second time and now prescribes him some sleep medication,
-he also refers Fred to Wilma, the specialist.
+*Achievement:* Bob has to prescribe a treatment for Douglas, a prescription  
+*Action:* Bob is now seeing Douglas for the second time and now prescribes him some sleep medication,
+he also refers Douglas to Wilma, the specialist.
 
 *Scenario: Pull*
 
@@ -42,8 +42,8 @@ he also refers Fred to Wilma, the specialist.
 *Age:* 32  
 *Gender:* Female  
 *Professional Group:* Pharmacist  
-*Scenario:* Fred presents himself, at the Pharmacy, and Alice pulls down the prescription/recipe that Bob
-pushed to Fred's Recall server. However, before she dispenses the medication, she verifies Bob's e-Signature on
+*Scenario:* Douglas presents himself, at the Pharmacy, and Alice pulls down the prescription/recipe that Bob
+pushed to Douglas's Recall server. However, before she dispenses the medication, she verifies Bob's e-Signature on
 the prescription/recipe. Bob is notified about the prescription/recipe collection.
 
 *Scenario: Push/Pull*  

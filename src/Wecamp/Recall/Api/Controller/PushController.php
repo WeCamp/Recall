@@ -62,7 +62,7 @@ class PushController
             case "personal":
                 return sprintf("%s updated his personal info", $user->getName());
             case "personal/health/medical/prescriptions":
-                return sprintf("%s add a medical prescription", $user->getName());
+                return sprintf("%s added a medical prescription", $user->getName());
             default:
                 return sprintf("%s added an entry", $user->getName());
         }

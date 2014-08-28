@@ -14,7 +14,7 @@
                     <th>{{ name }}</th>
 
                     {% if value is iterable %}
-                        {% if value|keys|first == 0 %}
+                        {% if value|keys|first is sameas(0) %}
 
                             <td class="no-padding">
                                 {% for listvalue in value %}

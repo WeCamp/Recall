@@ -43,13 +43,28 @@ class PushController
 
         $user = new User($requestBody['user']['name'], $requestBody['user']['email']);
 
+        $description = $this->createDescription($user, $entry);
+
         $savedEntry = $this->recall->addEntry(
             $entry,
-            $user
+            $user,
+            $description
         );
 
         return json_encode(array(
             'identifier' => $savedEntry->getIdentifier()->getValue(),
         ));
+    }
+
+    protected function createDescription(User $user, Entry $entry)
+    {
+        switch ($entry->getContext()->getName()) {
+            case "personal":
+                return sprintf("%s updated his personal info", $user->getName());
+            case "personal/health/medical/prescriptions":
+                return sprintf("%s added a medical prescription", $user->getName());
+            default:
+                return sprintf("%s added an entry", $user->getName());
+        }
     }
 }

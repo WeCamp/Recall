@@ -28,6 +28,10 @@ class EntryController
      */
     public function displayAction($contextName, $entryIdentifier)
     {
+        // get profile
+        $profile = $this->recall->getEntry(new Context('personal'), new Identifier('profile'));
+        $profileData = $profile->getData();
+
         // The forward slashes ("/") in the context are replaced with underscores ("_"). This has to be reverted for
         // the context to work again.
         $contextName = str_replace("_", "/", $contextName);
@@ -37,17 +41,21 @@ class EntryController
         $explodedEntryData = explode("@", $entryIdentifier);
         list($entryIdentifier, $eventIdentifier) = $explodedEntryData;
 
+        // get entry
         $entry = $this->recall->getEntry(
             new Context($contextName),
             new Identifier($entryIdentifier),
             $eventIdentifier
         );
 
-        var_dump($entry); die();
-
-        $vars = [
-            'entry' => $entry
-        ];
-        return $this->getTemplate()->render('entryDisplay.html.twig', $vars);
+        // render
+        return $this->getTemplate()->render(
+            'entryDisplay.html.twig',
+            array(
+                'profile' => $profileData['data'],
+                'event' => array('identifier' => $eventIdentifier),
+                'entry' => $entry
+            )
+        );
     }
-} 
+}

@@ -50,7 +50,7 @@ abstract class Fixture
     {
         $user = new User('Douglas Quaid', 'richter@rekall.com');
         $entry = new Entry($context, $this->getIdentifier(), $this->getData());
-        $gitRecall->addEntry($entry, $user);
+        $gitRecall->addEntry($entry, $user, "Fixture data");
     }
 
     /**

@@ -18,3 +18,35 @@
     float: right;
     color: #777777;
 }
+
+.page-header-right {
+    float: right;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.entry {
+    margin: 50px 0;
+}
+
+.entry dl {
+    margin: 0;
+}
+
+.entry dl dl {
+    display: inline-block;
+}
+
+.entry dt {
+    margin-top: 5px;
+}
+
+.entry dd {
+    margin-left: 20px;
+}
+
+.entry ul {
+    margin: 0;
+    padding-left: 15px;
+    list-style-position: outside;
+}

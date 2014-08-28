@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Entry{% endblock %}
+
+{% block content %}
+
+    <h1 class="page-header">Entry {{ entry.identifier }}</h1>
+    <h4>{{ entry.context|split('/')|join(' / ') }} @ {{ event.identifier }}</h4>
+
+    <dl class="entry">
+        {% for name, value in entry.data.data %}
+            <dt>{{ name }}</dt>
+            {% if value is iterable %}
+                {% if value|keys|first == 0 %}
+                    <dd>
+                        <ul>
+                            {% for listvalue in value %}
+                                <li>
+                                    <dl>
+                                        {% for subname, subvalue in listvalue %}
+                                            <dt>{{ subname }}</dt>
+                                            <dd>{{ subvalue }}</dd>
+                                        {% endfor %}
+                                    </dl>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </dd>
+                {% else %}
+                    <dd>
+                        <dl>
+                            {% for subname, subvalue in value %}
+                                <dt>{{ subname }}</dt>
+                                <dd>{{ subvalue }}</dd>
+                            {% endfor %}
+                        </dl>
+                    </dd>
+                {% endif %}
+
+            {% else %}
+                <dd>{{ value }}</dd>
+            {% endif %}
+        {% endfor %}
+    </dl>
+
+{% endblock %}

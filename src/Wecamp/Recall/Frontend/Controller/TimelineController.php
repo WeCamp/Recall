@@ -24,26 +24,24 @@ class TimelineController
 
     public function listAction()
     {
+        // create profile
         $profile = new Profile();
         $profile->persist(new Context('personal'), $this->recall);
 
-
-        $profile = $this->recall->getEntry(
-            new Context('personal'),
-            new Identifier('profile')
-        );
+        // get profile
+        $profile = $this->recall->getEntry(new Context('personal'), new Identifier('profile'));
         $profileData = $profile->getData();
 
+        // get timeline
         $timeline = $this->recall->recallTimeline();
-        $events = $timeline->getEvents();
 
-        $vars = array(
-            'name' => $profileData['data']['name'],
-            'gender' => $profileData['data']['gender'],
-            'age' => $profileData['data']['age'],
-            'professionalGroup' => $profileData['data']['professionalGroup'],
-            'timeline' => $events,
+        // render
+        return $this->getTemplate()->render(
+            'timeline.html.twig',
+            array(
+                'profile' => $profileData['data'],
+                'timeline' => $timeline
+            )
         );
-        return $this->getTemplate()->render('timeline.html.twig', $vars);
     }
 }

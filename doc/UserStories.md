@@ -1,4 +1,4 @@
-[Index](../TOTAL.md) | [Previous: Vision](Vision.md) | [Next: Technical](Technical.md) 
+[Index](../README.md) | [Previous: Vision](Vision.md) | [Next: Technical](Technical.md) 
 
 #User Stories#
 

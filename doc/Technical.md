@@ -1,4 +1,4 @@
-[Index](../TOTAL.md) | [Previous: User Stories](UserStories.md)
+[Index](../README.md) | [Previous: User Stories](UserStories.md)
 
 #Technical#
 

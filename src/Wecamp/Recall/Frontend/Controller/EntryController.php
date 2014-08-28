@@ -52,7 +52,7 @@ class EntryController
         return $this->getTemplate()->render(
             'entry.html.twig',
             array(
-                'profile' => $profileData['data'],
+                'profile' => $profileData->getData(),
                 'event' => array('identifier' => $eventIdentifier),
                 'entry' => $entry,
                 'pushrequests' => $this->recall->listChangeRequests()

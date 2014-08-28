@@ -12,11 +12,34 @@ function push(context, data)
                 "data": data
         })
     }).done(function(data) {
-        $('#console').html(JSON.stringify(data));
+        $('#console').html(JSON.stringify(data, undefined, 2));
+    });
+}
+
+function pull(context, identifier)
+{
+    var url = '/api/pull/' + context;
+    if (identifier !== "") {
+        url+= '/' + identifier;
+    }
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json'
+    }).done(function(data) {
+        $('#console').html(JSON.stringify(data, undefined, 2));
     });
 }
 
 $(document).ready(function() {
+
+    $('#pharmacistPulling').click(function(e) {
+        var entryIdentifier = $('#entryIdentifier').val()
+
+        console.log(entryIdentifier);
+        pull('personal_health_medical_prescriptions', entryIdentifier);
+    });
 
     $('#doctorPrescribing').click(function(e) {
         push('personal_health_medical_prescriptions', {

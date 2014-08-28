@@ -198,7 +198,7 @@ class GitRecall implements Recallable
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
 
-        if (@file_put_contents($file, json_encode($entry->getData(), JSON_PRETTY_PRINT)) === false) {
+        if (@file_put_contents($file, json_encode($entry->getData()->getData(), JSON_PRETTY_PRINT)) === false) {
             throw new \RuntimeException(sprintf('Unable to write file %s', $file));
         }
     }
@@ -253,7 +253,12 @@ class GitRecall implements Recallable
      */
     private function readLog(Context $context = null)
     {
-        $this->gitWrapper->log('--name-status');
+        if ($context) {
+            $this->gitWrapper->log('--name-status', $context->getName());
+        } else {
+            $this->gitWrapper->log('--name-status');
+        }
+        
         return $this->gitWrapper->getOutput();
     }
 

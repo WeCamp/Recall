@@ -173,7 +173,7 @@ class GitRecall implements Recallable
                     $name = $m[1];
                     $email = $m[2];
 
-                    preg_match('/\n\n +(.+?)\n\n/', $event, $m);
+                    preg_match('/\n\n +(.+)\n\n/', $event, $m);
                     $message = $m[1];
 
                     preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $event, $m);

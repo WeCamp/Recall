@@ -43,6 +43,10 @@ abstract class Fixture
         return $this->identifier;
     }
 
+    /**
+     * @param Context $context
+     * @param Recallable $gitRecall
+     */
     public function persist(Context $context, Recallable $gitRecall)
     {
         $user = new User('Douglas Quaid', 'richter@rekall.com');

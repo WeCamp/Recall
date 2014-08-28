@@ -38,6 +38,7 @@ class GitRecall implements Recallable
      */
     public function addEntry(Entry $entry, User $user)
     {
+        $this->checkoutVersion("HEAD");
         $this->createFile($entry);
         $this->commitFile($entry, $user);
     }

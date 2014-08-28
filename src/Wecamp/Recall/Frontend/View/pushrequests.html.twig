@@ -9,16 +9,19 @@
     <div class="list-group timeline">
         {% for pushrequest in pushrequests %}
             <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">{{ pushrequest.branch }}</h4>
-                <span class="list-group-item-date">{{ pushrequest.event.description }}</span>
+                <div style="float:left;">
+                    <h4 class="list-group-item-heading">{{ pushrequest.event.description }}</h4><br />
+                    <span class="list-group-item-date" style="float: left;">{{ pushrequest.branch }}</span>
+                </div>
                 <div style="float: right">
-                    <form action="/pushrequest-accept/{{ pushrequest.branch }}">
+                    <form action="/pushrequest-accept/{{ pushrequest.branch }}" style="display: inline;">
                     <input type="submit" class="btn btn-success btn-sm" value="Accept"/>
                     </form>
-                    <form action="/pushrequest-deny/{{ pushrequest.branch }}">
+                    <form action="/pushrequest-deny/{{ pushrequest.branch }}" style="display: inline;">
                     <input type="submit" class="btn btn-danger btn-sm" value="Deny"/>
                     </form>
                 </div>
+                <div style="clear: both;"></div>
             </a>
         {% endfor %}
     </div>

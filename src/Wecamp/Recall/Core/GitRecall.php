@@ -86,10 +86,9 @@ class GitRecall implements Recallable
         $dir = sprintf('%s/%s', $this->dataDir, $entry->getContext());
         if(!is_dir($dir)) {
             $result = @mkdir($dir, 0755, true);
-            if($result === false) {
-                if ($result === false) {
-                    throw new \RuntimeException(sprintf('Unable to create directory %s', $dir));
-                }
+
+            if ($result === false) {
+                throw new \RuntimeException(sprintf('Unable to create directory %s', $dir));
             }
         }
 

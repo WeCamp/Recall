@@ -2,18 +2,27 @@
 
 Do you Recall?
 
+Project Recall is the output of a week long coding camp called [Wecamp](http://weca.mp), held in the Netherlands from (held from 25-29th
+August 2014).
+
+##Contributors##
+
+* [Pascal de Vink](https://github.com/pascaldevink)
+* [Jasper N. Brouwer](https://github.com/jaspernbrouwer)
+* [Dennis de Greef](https://github.com/dennisdegreef)
+* [Jeremy Coates](https://github.com/phpcodemonkey) (Team coach)
+
 Getting started
 =======
-````
-$ composer install
-$ php -S 0.0.0.0:8080 -t web
-````
+
+    $ git clone git@github.com:WeCamp/Recall.git
+    $ composer install
+    $ php -S 0.0.0.0:8080 -t web
 
 Testing
 =======
-````
-$ bin/phpunit test
-````
+
+    $ bin/phpunit test
 
 Known issues
 =======

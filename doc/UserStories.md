@@ -1,3 +1,5 @@
+[Index](../TOTAL.md) | [Previous: Vision](Vision.md) | [Next: Technical](Technical.md) 
+
 #User Stories#
 
 The Recall project approached the development of work related packages using BDD related principles.
@@ -14,7 +16,7 @@ these discussions will hopefully be visible in the final codebase.
 >*Name:* **Douglas** (Quaid)  
 *Age:* 26  
 *Gender:* Male  
-*Professional Group:* Tester in a technical team (at Recall)  
+*Professional Group:* Tester in a technical team (at Rekall)  
 *Problem:* Work related stress. Fred has had some periods off (sick) from work due to stress. Fred feels
 like he can't admit the stress problems at work.  
 He has been to the G.P. before and now has a second appointment and hopes to now get some medication to

@@ -38,7 +38,7 @@ class GitRecall implements Recallable
      */
     public function addEntry(Entry $entry, User $user)
     {
-        $this->checkoutVersion("HEAD");
+        $this->checkoutVersion(null);
         $this->createFile($entry);
         $this->commitFile($entry, $user);
 
@@ -135,12 +135,12 @@ class GitRecall implements Recallable
     }
 
     /**
-     * @param string $version
+     * @param string|null $version
      */
     private function checkoutVersion($version)
     {
         if (!$version) {
-            $version = 'HEAD';
+            $version = 'master';
         }
 
         $this->gitWrapper->checkout($version);

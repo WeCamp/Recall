@@ -114,4 +114,40 @@ EOT;
         $this->assertEquals('some/context', (string)$event->getEntryContext());
         $this->assertEquals('profile', (string)$event->getEntryIdentifier());
     }
+
+    public function testRecallingTheTimelineForAContext()
+    {
+        $contextName = 'personal/health/medical/prescriptions';
+        $context = new Context($contextName);
+
+        $log = <<< EOT
+commit b93a19769533ed73544f6c739d1040bcbd7f032f
+Author: Douglas Quaid <douglas@quaid.com>
+Date:   Wed Aug 27 13:06:09 2014 +0200
+
+    What do you want, Mr. Quaid?
+
+A       some/context/profile.json
+EOT;
+
+        $this->wrapper->shouldReceive('workingCopy')->times(1)->with(vfsStream::url('repo'));
+        $this->wrapper->shouldReceive('log')->times(1)->with('--name-status ' . $contextName);
+        $this->wrapper->shouldReceive('getOutput')->times(1)->andReturn($log);
+
+        $recall = new GitRecall($this->wrapper, vfsStream::url('repo'));
+
+        $timeline = $recall->recallTimeline($this->context);
+        $event = $timeline[0];
+
+        $this->assertCount(1, $timeline);
+
+        $this->assertInstanceOf('Wecamp\Recall\Core\Event', $event);
+        $this->assertEquals('b93a19769533ed73544f6c739d1040bcbd7f032f', $event->getEventIdentifier());
+        $this->assertEquals('1409137569', $event->getTimestamp());
+        $this->assertEquals('Douglas Quaid', $event->getUser()->getName());
+        $this->assertEquals('douglas@quaid.com', $event->getUser()->getEmail());
+        $this->assertEquals('What do you want, Mr. Quaid?', $event->getDescription());
+        $this->assertEquals('some/context', (string)$event->getEntryContext());
+        $this->assertEquals('profile', (string)$event->getEntryIdentifier());
+    }
 }

@@ -29,6 +29,16 @@ class Event
     protected $description;
 
     /**
+     * @var int $insertions
+     */
+    protected $insertions = 0;
+
+    /**
+     * @var int $deletions
+     */
+    protected $deletions = 0;
+
+    /**
      * @var Context $entryContext
      */
     protected $entryContext;
@@ -40,24 +50,30 @@ class Event
 
     /**
      * @param string $eventIdentifier
-     * @param string $description
      * @param User $user
      * @param int $timestamp
+     * @param string $description
+     * @param int $insertions
+     * @param int $deletions
      * @param Context $entryContext
      * @param Identifier $entryIndetifier
      */
     public function __construct(
         $eventIdentifier,
-        $description,
         User $user,
         $timestamp,
+        $description,
+        $insertions,
+        $deletions,
         Context $entryContext,
         Identifier $entryIndetifier
     ) {
         $this->eventIdentifier = $eventIdentifier;
-        $this->timestamp = $timestamp;
         $this->user = $user;
+        $this->timestamp = $timestamp;
         $this->description = $description;
+        $this->insertions = $insertions;
+        $this->deletions = $deletions;
         $this->entryContext = $entryContext;
         $this->entryIdentifier = $entryIndetifier;
     }
@@ -73,14 +89,6 @@ class Event
     /**
      * @return string
      */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * @return string
-     */
     public function getUser()
     {
         return $this->user;
@@ -89,9 +97,33 @@ class Event
     /**
      * @return string
      */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeletions()
+    {
+        return $this->deletions;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInsertions()
+    {
+        return $this->insertions;
     }
 
     /**

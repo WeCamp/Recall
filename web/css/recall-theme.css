@@ -19,10 +19,18 @@
     color: #777777;
 }
 
-.page-header-right {
+.timeline .event-numbers {
     float: right;
-    font-size: 14px;
-    margin-top: 20px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.timeline .event-insertions {
+    color: #4cae4c;
+}
+
+.timeline .event-deletions {
+    color: #d43f3a;
 }
 
 .entry {

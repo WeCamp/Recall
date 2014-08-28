@@ -78,6 +78,22 @@ class GitRecall implements Recallable
 
     private function openWorkingCopy()
     {
+        if (!is_dir($this->dataDir)) {
+            if (@mkdir($this->dataDir, 0755, true) === false) {
+                throw new \RuntimeException(sprintf('Unable to create directory %s', $this->dataDir));
+            }
+
+            $this->gitWrapper->init($this->dataDir);
+
+            if (@touch($this->dataDir . '/README.md') === false) {
+                throw new \RuntimeException(sprintf('Unable to write file %s', $this->dataDir . '/README.md'));
+            }
+
+            $this->gitWrapper->setUser('Recall System', 'system@recall.com');
+            $this->gitWrapper->add('README.md');
+            $this->gitWrapper->commit('Added readme');
+        }
+
         $this->gitWrapper->workingCopy($this->dataDir);
     }
 

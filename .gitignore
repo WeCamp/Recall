@@ -1,5 +1,5 @@
 .idea/*
 
+bin/*
 var/data/*
 vendor/*
-bin/*

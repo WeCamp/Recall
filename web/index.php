@@ -32,6 +32,12 @@ $app['timeline.controller'] = $app->share(function() use ($app) {
     return $timelineController;
 });
 
+$app['entry.controller'] = $app->share(function() use ($app) {
+    $eventController = new \Wecamp\Recall\Frontend\Controller\EntryController($app['recall']);
+    $eventController->setTemplate($app['twig']);
+    return $eventController;
+});
+
 // Views
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => dirname(__FILE__).'/../src/Wecamp/Recall/Frontend/View',
@@ -39,5 +45,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Routing
 $app->get('/', 'timeline.controller:listAction');
+$app->get('/entry/{contextName}/{entryIdentifier}', 'entry.controller:displayAction');
 
 $app->run();

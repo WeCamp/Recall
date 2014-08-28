@@ -296,9 +296,7 @@ class GitRecall implements Recallable
 
                 $message = $m[1];
 
-                if(!preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $block, $m)) {
-                    //continue;
-                }
+                preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $block, $m);
                 $action = $m[1];
                 $file = $m[2];
 

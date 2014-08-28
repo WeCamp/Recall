@@ -44,7 +44,7 @@ class PushRequestController
         return $this->getTemplate()->render(
             'pushrequests.html.twig',
             array(
-                'profile' => $profileData['data'],
+                'profile' => $profileData->getData(),
                 'pushrequests' => $pushRequests
             )
         );

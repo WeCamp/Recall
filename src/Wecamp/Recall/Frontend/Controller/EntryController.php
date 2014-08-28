@@ -29,6 +29,8 @@ class EntryController
      */
     public function displayAction($contextName, $entryIdentifier)
     {
+        // The forward slashes ("/") in the context are replaced with underscores ("_"). This has to be reverted for
+        // the context to work again.
         $contextName = str_replace("_", "/", $contextName);
 
         $entry = $this->recall->getEntry(

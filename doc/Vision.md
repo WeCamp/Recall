@@ -1,4 +1,4 @@
-[Index](../TOTAL.md) | [Next: User Stories](UserStories.md)
+[Index](../README.md) | [Next: User Stories](UserStories.md)
 
 #Vision for Recall#
 ##A project from team The Avengers##

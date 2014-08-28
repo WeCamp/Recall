@@ -52,8 +52,11 @@ class PullController
             $eventIdentifier
         );
 
-        var_dump($entry);
-        return json_encode($entry);
+        return json_encode(array(
+            'contextName' => $context->getName(),
+            'identifier' => $entry->getIdentifier()->getValue(),
+            'data' => $entry->getData()->getData(),
+        ));
     }
 
     /**
@@ -63,7 +66,7 @@ class PullController
     protected function getTimelineForContext(Context $context)
     {
         $timeline = $this->recall->recallTimeline($context);
-        var_dump($timeline);
-        return json_encode($timeline);
+
+        return json_encode($timeline, true);
     }
 }

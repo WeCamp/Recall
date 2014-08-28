@@ -1,7 +1,6 @@
 <?php
 
 namespace Wecamp\Recall\Core;
-use Wecamp\Recall\Git\GitWrapper;
 
 /**
  * Class Fixture
@@ -43,6 +42,10 @@ abstract class Fixture
         return $this->identifier;
     }
 
+    /**
+     * @param Context $context
+     * @param Recallable $gitRecall
+     */
     public function persist(Context $context, Recallable $gitRecall)
     {
         $user = new User('Douglas Quaid', 'richter@rekall.com');

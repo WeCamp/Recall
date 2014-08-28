@@ -38,7 +38,7 @@ class PushController
         $entry = new Entry(
             $context,
             new Identifier(),
-            Data::factory('json', json_encode($requestBody['data']))
+            Data::factory('json', $requestBody['data'])
         );
 
         $user = new User($requestBody['user']['name'], $requestBody['user']['email']);

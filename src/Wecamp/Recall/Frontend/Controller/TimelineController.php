@@ -26,7 +26,7 @@ class TimelineController
     {
         // create profile
         $profile = new Profile();
-        $profile->persist(new Context('personal'), $this->recall);
+        $profile->persist(new Context('personal'), $this->recall, "Profile created");
 
         // get profile
         $profile = $this->recall->getEntry(new Context('personal'), new Identifier('profile'));

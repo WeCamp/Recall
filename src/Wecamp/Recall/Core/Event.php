@@ -156,6 +156,9 @@ class Event implements \JsonSerializable
             "timestamp" => $this->getTimestamp(),
             "user" => $this->getUser(),
             "description" => $this->getDescription(),
+            "insertions" => $this->getInsertions(),
+            "deletions" => $this->getDeletions(),
+            "entryContext" => $this->getEntryContext()->getName(),
             "entryIdentifier" => $this->getEntryIdentifier()->getValue(),
         ];
     }

@@ -55,7 +55,7 @@ class PushController
         );
 
         return json_encode(array(
-            //'identifier' => $savedEntry->getIdentifier()->getValue(),
+            'identifier' => $savedEntry->getIdentifier()->getValue(),
         ));
     }
 

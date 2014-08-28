@@ -21,8 +21,8 @@ class Identifier
     public function __construct($value = null)
     {
         // Generate a value iff none is given
-        if($value === null) {
-            $value = (string) Uuid::uuid4();
+        if ($value === null) {
+            $value = (string)Uuid::uuid4();
         }
         $this->value = trim($value, DIRECTORY_SEPARATOR);
     }

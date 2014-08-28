@@ -1,7 +1,6 @@
 <?php
 
 namespace Wecamp\Recall\Core;
-use Symfony\Component\Process\Exception\RuntimeException;
 
 /**
  * Class Data
@@ -79,11 +78,11 @@ abstract class Data implements Serializable, \ArrayAccess, \Countable
         $class = __NAMESPACE__ . '\\Data\\' . $type;
 
         $object = null;
-        if(class_exists($class)) {
+        if (class_exists($class)) {
             $object = new $class(json_encode($data));
         }
 
-        if($object === null) {
+        if ($object === null) {
             throw new \RuntimeException("Unable to instantiate object of class '" . $class . "'");
         }
 

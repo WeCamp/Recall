@@ -163,10 +163,10 @@ class GitRecall implements Recallable
         $events = array();
 
         foreach (preg_split('/(?:^|\n)commit /', $log, -1, PREG_SPLIT_NO_EMPTY) as $event) {
-            if(preg_match('/^(.+?)\n/', $event, $m)) {
+            if (preg_match('/^(.+?)\n/', $event, $m)) {
                 $commit = $m[1];
 
-                if(preg_match('/Date: +(.+?)\n/', $event, $m)) {
+                if (preg_match('/Date: +(.+?)\n/', $event, $m)) {
                     $date = $m[1];
 
                     preg_match('/Author: +(.+?) <(.+?)>/', $event, $m);
@@ -176,8 +176,7 @@ class GitRecall implements Recallable
                     preg_match('/\n\n +(.+?)\n\n/', $event, $m);
                     $message = $m[1];
 
-                    preg_match('/\n([AMD])\t(.+?)\n/', $event, $m);
-
+                    preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $event, $m);
                     $action = $m[1];
                     $file = $m[2];
 

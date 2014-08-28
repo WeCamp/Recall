@@ -75,21 +75,13 @@ class GitRecall implements Recallable
 
     public function acceptChangeRequest($branch)
     {
-        // git checkout master
         $this->checkoutVersion(null);
-
-        // git merge {$branch}
         $this->merge($branch);
-
-        // git branch -d {$branch}
         $this->delete($branch);
-        // TODO: FIXME!
     }
 
     public function denyChangeRequest($branch)
     {
-        // TODO: FIXME!
-        // git branch -d {$branch}
         $this->delete($branch);
     }
 
@@ -107,7 +99,9 @@ class GitRecall implements Recallable
         $this->checkoutVersion($branch);
 
         $log = $this->readLog($context);
-        $logEvents = $this->parseLog($log);
+        $logStats = $this->readLogStats($context);
+
+        $logEvents = $this->parseLog($log, $logStats);
 
         return $this->createTimeline($logEvents);
     }
@@ -177,7 +171,7 @@ class GitRecall implements Recallable
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
 
-        if (@file_put_contents($file, json_encode($entry->getData())) === false) {
+        if (@file_put_contents($file, json_encode($entry->getData(), JSON_PRETTY_PRINT)) === false) {
             throw new \RuntimeException(sprintf('Unable to write file %s', $file));
         }
     }
@@ -233,47 +227,80 @@ class GitRecall implements Recallable
     private function readLog(Context $context = null)
     {
         $this->gitWrapper->log('--name-status');
+        return $this->gitWrapper->getOutput();
+    }
 
+    /**
+     * @param Context|null $context
+     * @return string
+     */
+    private function readLogStats(Context $context = null)
+    {
+        $this->gitWrapper->log('--stat');
         return $this->gitWrapper->getOutput();
     }
 
     /**
      * @param string $log
+     * @param string $logStats
      * @return array
      */
-    private function parseLog($log)
+    private function parseLog($log, $logStats)
     {
         $events = array();
 
-        foreach (preg_split('/(?:^|\n)commit /', $log, -1, PREG_SPLIT_NO_EMPTY) as $event) {
-            if (preg_match('/^(.+?)\n/', $event, $m)) {
+        $logBlocks = preg_split('/(?:^|\n)commit /', $log, -1, PREG_SPLIT_NO_EMPTY);
+        $logStatsBlocks = preg_split('/(?:^|\n)commit /', $logStats, -1, PREG_SPLIT_NO_EMPTY);
+
+        foreach ($logBlocks as $block) {
+            if (preg_match('/^(.+?)\n/', $block, $m)) {
                 $commit = $m[1];
 
-                if (preg_match('/Date: +(.+?)\n/', $event, $m)) {
+                if (preg_match('/Date: +(.+?)\n/', $block, $m)) {
                     $date = $m[1];
 
-                    if(preg_match('/Author: +(.+?) <(.+?)>/', $event, $m)) {
-                        $name = $m[1];
-                        $email = $m[2];
+                    if(!preg_match('/Author: +(.+?) <(.+?)>/', $block, $m)) {
+                        //continue;
+                    }
+                    $name = $m[1];
+                    $email = $m[2];
 
-                        if(preg_match('/\n\n +(.+)\n\n/', $event, $m)) {
-                            $message = $m[1];
+                    if(!preg_match('/\n\n +(.+)\n\n/', $block, $m)) {
+                        //continue;
+                    }
+                    $message = $m[1];
 
-                            preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $event, $m);
-                            $action = $m[1];
-                            $file = $m[2];
+                    if(!preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $block, $m)) {
+                        //continue;
+                    }
+                    $action = $m[1];
+                    $file = $m[2];
 
-                            $events[] = array(
-                                'commit' => $commit,
-                                'date' => $date,
-                                'user_name' => $name,
-                                'user_email' => $email,
-                                'message' => $message,
-                                'action' => $action,
-                                'file' => $file
-                            );
+                    $insertions = 0;
+                    $deletions = 0;
+
+                    foreach ($logStatsBlocks as $statsBlock) {
+                        if (strpos($statsBlock, $commit) === 0) {
+                            if (preg_match('/(\d+) insertion/', $statsBlock, $m)) {
+                                $insertions = (int)$m[1];
+                            }
+                            if (preg_match('/(\d+) deletion/', $statsBlock, $m)) {
+                                $deletions = (int)$m[1];
+                            }
                         }
                     }
+
+                    $events[] = array(
+                        'commit' => $commit,
+                        'date' => $date,
+                        'user_name' => $name,
+                        'user_email' => $email,
+                        'message' => $message,
+                        'action' => $action,
+                        'file' => $file,
+                        'insertions' => $insertions,
+                        'deletions' => $deletions
+                    );
                 }
             }
         }
@@ -294,18 +321,18 @@ class GitRecall implements Recallable
                 continue;
             }
 
+            $user = new User($logEvent['user_name'], $logEvent['user_email']);
+            $date = new \DateTime($logEvent['date']);
             $context = new Context($m[1]);
             $identifier = new Identifier($m[2]);
 
-            $date = new \DateTime($logEvent['date']);
-
-            $user = new User($logEvent['user_name'], $logEvent['user_email']);
-
             $events[] = new Event(
                 $logEvent['commit'],
-                $logEvent['message'],
                 $user,
                 $date->getTimestamp(),
+                $logEvent['message'],
+                $logEvent['insertions'],
+                $logEvent['deletions'],
                 $context,
                 $identifier
             );

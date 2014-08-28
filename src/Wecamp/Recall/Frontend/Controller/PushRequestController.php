@@ -37,7 +37,7 @@ class PushRequestController
 
         $pushRequests = [];
         foreach($branches as $branch) {
-            $timeline = $this->recall->recallTimeline(new Context(''), $branch);
+            $timeline = $this->recall->recallTimeline(null, $branch);
             $pushRequests[] = [
                 'branch' => $branch,
                 'event' => $timeline->getEvents()[0]

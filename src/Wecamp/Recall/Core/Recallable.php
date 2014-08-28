@@ -15,9 +15,10 @@ interface Recallable
      *
      * @param  Entry $entry
      * @param  User $user
+     * @param  string $description
      * @return Entry
      */
-    public function addEntry(Entry $entry, User $user);
+    public function addEntry(Entry $entry, User $user, $description);
 
     /**
      * Returns an Entry for a given Context located by its identifier

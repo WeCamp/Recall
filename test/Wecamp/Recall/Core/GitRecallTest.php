@@ -59,7 +59,7 @@ class GitRecallTest extends \PHPUnit_Framework_TestCase
 
         $recall = new GitRecall($this->wrapper, vfsStream::url('repo'));
 
-        $recall->addEntry($this->entry, $this->user);
+        $recall->addEntry($this->entry, $this->user, "Test adding an entry");
 
         $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('some/context/profile.json'));
     }

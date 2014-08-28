@@ -34,13 +34,14 @@ class GitRecall implements Recallable
      *
      * @param  Entry $entry
      * @param  User $user
+     * @param  string $description
      * @return Entry
      */
-    public function addEntry(Entry $entry, User $user)
+    public function addEntry(Entry $entry, User $user, $description)
     {
         $this->checkoutVersion("HEAD");
         $this->createFile($entry);
-        $this->commitFile($entry, $user);
+        $this->commitFile($entry, $user, $description);
 
         return $entry;
     }
@@ -106,13 +107,14 @@ class GitRecall implements Recallable
     /**
      * @param Entry $entry
      * @param User $user
+     * @param string $description The commit message
      */
-    private function commitFile(Entry $entry, User $user)
+    private function commitFile(Entry $entry, User $user, $description)
     {
         if ($this->gitWrapper->hasChanges()) {
             $this->gitWrapper->setUser($user->getName(), $user->getEmail());
             $this->gitWrapper->add(sprintf('%s/%s.json', $entry->getContext(), $entry->getIdentifier()));
-            $this->gitWrapper->commit("Start the reactor. Free Mars...");
+            $this->gitWrapper->commit($description);
         }
     }
 

@@ -105,17 +105,14 @@ class GitRecall implements Recallable
     {
         $dir = sprintf('%s/%s', $this->dataDir, $entry->getContext());
         if (!is_dir($dir)) {
-            $result = @mkdir($dir, 0755, true);
-
-            if ($result === false) {
+            if (@mkdir($dir, 0755, true) === false) {
                 throw new \RuntimeException(sprintf('Unable to create directory %s', $dir));
             }
         }
 
         $file = sprintf('%s/%s/%s.json', $this->dataDir, $entry->getContext(), $entry->getIdentifier());
-        $result = file_put_contents($file, json_encode($entry->getData()));
 
-        if ($result === false) {
+        if (@file_put_contents($file, json_encode($entry->getData())) === false) {
             throw new \RuntimeException(sprintf('Unable to write file %s', $file));
         }
     }

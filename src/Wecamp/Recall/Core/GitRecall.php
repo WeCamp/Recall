@@ -35,11 +35,12 @@ class GitRecall implements Recallable
      * @param  Entry $entry
      * @param  User $user
      * @param  string $description
+     * @param null $version
      * @return Entry
      */
-    public function addEntry(Entry $entry, User $user, $description)
+    public function addEntry(Entry $entry, User $user, $description, $version = null)
     {
-        $this->checkoutVersion(null);
+        $this->checkoutVersion($version);
         $this->createFile($entry);
         $this->commitFile($entry, $user, $description);
 
@@ -60,20 +61,84 @@ class GitRecall implements Recallable
         return $this->readFile($context, $identifier);
     }
 
+    public function changeRequest()
+    {
+        // Always branch from master
+        $this->checkoutVersion();
+        return $this->branch();
+    }
+
+    public function listChangeRequests()
+    {
+        return $this->listBranches();
+    }
+
+    public function acceptChangeRequest($branch)
+    {
+        // git checkout master
+        $this->checkoutVersion(null);
+
+        // git merge {$branch}
+        $this->merge($branch);
+
+        // git branch -d {$branch}
+        $this->delete($branch);
+        // TODO: FIXME!
+    }
+
+    public function denyChangeRequest($branch)
+    {
+        // TODO: FIXME!
+        // git branch -d {$branch}
+        $this->delete($branch);
+    }
+
     /**
      * Recalls the whole timeline for a certain Context
      * If no Context is given, a wildcard is assumed.
      * A.k.a. Total Recall
      *
      * @param  Context $context
+     * @param string $branch
      * @return Timeline
      */
-    public function recallTimeline(Context $context = null)
+    public function recallTimeline(Context $context = null, $branch = 'master')
     {
+        $this->checkoutVersion($branch);
+
         $log = $this->readLog($context);
         $logEvents = $this->parseLog($log);
 
         return $this->createTimeline($logEvents);
+    }
+
+    private function branch()
+    {
+        $uuid = (string) \Rhumsaa\Uuid\Uuid::uuid4();
+        $this->gitWrapper->checkoutNewBranch($uuid);
+        return $uuid;
+    }
+
+    private function merge($branch)
+    {
+        $this->gitWrapper->merge($branch);
+    }
+
+    private function delete($branch)
+    {
+        $this->checkoutVersion();
+        $this->gitWrapper->branch($branch, array('D' => true));
+    }
+
+    private function listBranches()
+    {
+        $branches = $this->gitWrapper->getBranches()->fetchBranches();
+        foreach($branches as $key => $value) {
+            if($value == 'master') {
+                unset($branches[$key]);
+            }
+        }
+        return array_values($branches);
     }
 
     private function openWorkingCopy()
@@ -152,7 +217,7 @@ class GitRecall implements Recallable
     /**
      * @param string|null $version
      */
-    private function checkoutVersion($version)
+    private function checkoutVersion($version = null)
     {
         if (!$version) {
             $version = 'master';
@@ -187,26 +252,28 @@ class GitRecall implements Recallable
                 if (preg_match('/Date: +(.+?)\n/', $event, $m)) {
                     $date = $m[1];
 
-                    preg_match('/Author: +(.+?) <(.+?)>/', $event, $m);
-                    $name = $m[1];
-                    $email = $m[2];
+                    if(preg_match('/Author: +(.+?) <(.+?)>/', $event, $m)) {
+                        $name = $m[1];
+                        $email = $m[2];
 
-                    preg_match('/\n\n +(.+)\n\n/', $event, $m);
-                    $message = $m[1];
+                        if(preg_match('/\n\n +(.+)\n\n/', $event, $m)) {
+                            $message = $m[1];
 
-                    preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $event, $m);
-                    $action = $m[1];
-                    $file = $m[2];
+                            preg_match('/\n([AMD])(?:\t| {7})(.+?)(?:\n|$)/', $event, $m);
+                            $action = $m[1];
+                            $file = $m[2];
 
-                    $events[] = array(
-                        'commit' => $commit,
-                        'date' => $date,
-                        'user_name' => $name,
-                        'user_email' => $email,
-                        'message' => $message,
-                        'action' => $action,
-                        'file' => $file
-                    );
+                            $events[] = array(
+                                'commit' => $commit,
+                                'date' => $date,
+                                'user_name' => $name,
+                                'user_email' => $email,
+                                'message' => $message,
+                                'action' => $action,
+                                'file' => $file
+                            );
+                        }
+                    }
                 }
             }
         }

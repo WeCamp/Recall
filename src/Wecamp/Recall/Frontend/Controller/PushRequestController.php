@@ -7,7 +7,7 @@ use Wecamp\Recall\Core\Identifier;
 use Wecamp\Recall\Core\Recallable;
 use Wecamp\Recall\Fixture\Personal\Profile;
 
-class TimelineController
+class PushRequestController
 {
     use TemplateEnabled;
 
@@ -32,18 +32,48 @@ class TimelineController
         $profile = $this->recall->getEntry(new Context('personal'), new Identifier('profile'));
         $profileData = $profile->getData();
 
-        // get timeline
-        $timeline = $this->recall->recallTimeline();
-        //echo '<pre>'; print_r($this->recall->listChangeRequests());exit;
+
+        $branches = $this->recall->listChangeRequests();
+
+        $pushRequests = [];
+        foreach($branches as $branch) {
+            $timeline = $this->recall->recallTimeline(new Context(''), $branch);
+            $pushRequests[] = [
+                'branch' => $branch,
+                'event' => $timeline->getEvents()[0]
+            ];
+        }
+
+        //echo '<pre>'; print_r($pushRequests); exit;
 
         // render
         return $this->getTemplate()->render(
-            'timeline.html.twig',
+            'pushrequests.html.twig',
             array(
                 'profile' => $profileData['data'],
-                'timeline' => $timeline,
-                'pushrequests' => $this->recall->listChangeRequests()
+                'pushrequests' => $pushRequests
             )
         );
+    }
+
+    public function showAction($branch)
+    {
+
+    }
+
+    public function acceptAction($branch)
+    {
+        $this->recall->acceptChangeRequest($branch);
+
+        header("Location: /pushrequests");
+        exit;
+    }
+
+    public function denyAction($branch)
+    {
+        $this->recall->denyChangeRequest($branch);
+
+        header("Location: /pushrequests");
+        exit;
     }
 }

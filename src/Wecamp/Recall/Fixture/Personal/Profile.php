@@ -29,7 +29,7 @@ class Profile extends Fixture
     protected function getStruct()
     {
         return array(
-            'name' => 'Fred Flintstone',
+            'name' => 'Douglas Quaid',
             'age' => 26,
             'gender' => 'Male',
             'professionalGroup' => 'Tester in a technical team'

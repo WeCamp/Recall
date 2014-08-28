@@ -13,11 +13,11 @@ interface Recallable
     /**
      * Adds an Entry
      *
-     * @param  Entry $entity
+     * @param  Entry $entry
      * @param  User $user
      * @return Entry
      */
-    public function addEntry(Entry $entity, User $user);
+    public function addEntry(Entry $entry, User $user);
 
     /**
      * Returns an Entry for a given Context located by its identifier

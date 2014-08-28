@@ -53,6 +53,7 @@ class GitRecallTest extends \PHPUnit_Framework_TestCase
         $this->wrapper->shouldReceive('workingCopy')->times(1)->with(vfsStream::url('repo'));
         $this->wrapper->shouldReceive('setUser')->times(1)->with('Douglas Quaid', 'douglas@quaid.com');
         $this->wrapper->shouldReceive('add')->times(1)->with('some/context/profile.json');
+        $this->wrapper->shouldReceive('checkout')->times(1)->with('HEAD');
         $this->wrapper->shouldReceive('hasChanges')->times(1)->andReturn(true);
         $this->wrapper->shouldReceive('commit')->times(1)->with('Start the reactor. Free Mars...');
 

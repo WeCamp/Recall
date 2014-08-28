@@ -2,6 +2,17 @@
 
 Do you Recall?
 
+Getting started
+=======
+````
+$ composer install
+$ mkdir -p var/data/repo
+$ cd var/data/repo
+$ git init
+$ cd ../../..
+$ php -S 0.0.0.0:8080 -t web
+````
+
 Testing
 =======
 ````

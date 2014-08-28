@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Entry{% endblock %}
+
+{% block content %}
+
+    <h1 class="page-header">Entry {{ entry.identifier }}</h1>
+    <h4>{{ entry.context|split('/')|join(' / ') }} @ {{ event.identifier }}</h4>
+
+    <table class="entry table table-bordered">
+        <tbody>
+            {% for name, value in entry.data.data %}
+                <tr>
+                    <th>{{ name }}</th>
+
+                    {% if value is iterable %}
+                        {% if value|keys|first == 0 %}
+
+                            <td class="no-padding">
+                                {% for listvalue in value %}
+                                    <table class="table">
+                                        <tbody>
+                                            {% for subname, subvalue in listvalue %}
+                                                <tr>
+                                                    <th>{{ subname }}</th>
+                                                    <td>{{ subvalue }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endfor %}
+                            </td>
+
+                        {% else %}
+
+                            <td class="no-padding">
+                                <table class="table">
+                                    <tbody>
+                                    {% for subname, subvalue in value %}
+                                        <tr>
+                                            <th>{{ subname }}</th>
+                                            <td>{{ subvalue }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </td>
+
+                        {% endif %}
+
+                    {% else %}
+                        <td>{{ value }}</td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

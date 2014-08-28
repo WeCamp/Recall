@@ -26,27 +26,18 @@
 }
 
 .entry {
-    margin: 50px 0;
+    margin: 50px 0 0;
 }
 
-.entry dl {
+.entry .table {
     margin: 0;
 }
 
-.entry dl dl {
-    display: inline-block;
+.entry .table > tbody > tr:first-child > td,
+.entry .table > tbody > tr:first-child > th {
+    border: 0;
 }
 
-.entry dt {
-    margin-top: 5px;
-}
-
-.entry dd {
-    margin-left: 20px;
-}
-
-.entry ul {
-    margin: 0;
-    padding-left: 15px;
-    list-style-position: outside;
+.table > tbody > tr > td.no-padding {
+    padding: 0;
 }

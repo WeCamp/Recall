@@ -80,7 +80,7 @@ class GitWrapperTest extends \PHPUnit_Framework_TestCase
         $recallGitWrapper = new GitWrapper($gitWrapper);
         $recallGitWrapper->init(false);
 
-        $recallGitWrapper->setUser('Fred', 'fred@rekall.com');
+        $recallGitWrapper->setUser('Douglas', 'douglas@rekall.com');
 
         $returnValue = $recallGitWrapper->add(false);
 

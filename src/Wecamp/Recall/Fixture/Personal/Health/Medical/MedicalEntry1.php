@@ -16,7 +16,7 @@ class MedicalEntry1 extends Fixture
     {
         return [
             "dateAndTime" => "1988-04-04 13:37:00 UTC-1",
-            "description" => "Fred was born",
+            "description" => "Douglas was born",
             "relatedWith" => [
                 [
                     "name" => "Bob",

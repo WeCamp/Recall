@@ -44,7 +44,7 @@ class PullController
     protected function getEntryForContext(Context $context, $entryIdentifier)
     {
         $explodedEntryData = explode("@", $entryIdentifier);
-        list($entryIdentifier, $eventIdentifier) = $explodedEntryData;
+        @list($entryIdentifier, $eventIdentifier) = $explodedEntryData;
 
         $entry = $this->recall->getEntry(
             $context,

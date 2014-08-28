@@ -12,7 +12,7 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 // Recall
-$app['recall.data_dir'] = dirname(__FILE__) . '/../var/data/';
+$app['recall.data_dir'] = dirname(__FILE__) . '/../var/data/repo';
 $app->register(new \Wecamp\Recall\Provider\RecallServiceProvider());
 
 // GitWrapper

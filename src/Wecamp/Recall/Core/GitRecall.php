@@ -167,7 +167,11 @@ class GitRecall implements Recallable
      */
     private function readLog(Context $context = null)
     {
-        $this->gitWrapper->log('--name-status %s', $context);
+        if ($context) {
+            $this->gitWrapper->log('--name-status', $context->getName());
+        } else {
+            $this->gitWrapper->log('--name-status');
+        }
 
         return $this->gitWrapper->getOutput();
     }

@@ -18,7 +18,7 @@ interface Recallable
      * @param  string $description
      * @return Entry
      */
-    public function addEntry(Entry $entry, User $user, $description);
+    public function addEntry(Entry $entry, User $user, $description, $version = null);
 
     /**
      * Returns an Entry for a given Context located by its identifier
@@ -36,7 +36,30 @@ interface Recallable
      * A.k.a. Total Recall
      *
      * @param  Context $context
+     * @param string $branch
      * @return Timeline
      */
-    public function recallTimeline(Context $context = null);
+    public function recallTimeline(Context $context = null, $branch = 'master');
+
+    /**
+     * @return string $uuid
+     */
+    public function changeRequest();
+
+    /**
+     * @return string[]
+     */
+    public function listChangeRequests();
+
+    /**
+     * @param $branch
+     * @return null
+     */
+    public function acceptChangeRequest($branch);
+
+    /**
+     * @param $branch
+     * @return null
+     */
+    public function denyChangeRequest($branch);
 }

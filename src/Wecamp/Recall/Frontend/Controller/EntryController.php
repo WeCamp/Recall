@@ -54,7 +54,8 @@ class EntryController
             array(
                 'profile' => $profileData->getData(),
                 'event' => array('identifier' => $eventIdentifier),
-                'entry' => $entry
+                'entry' => $entry,
+                'pushrequests' => $this->recall->listChangeRequests()
             )
         );
     }

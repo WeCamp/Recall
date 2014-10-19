@@ -35,6 +35,8 @@ class PushController
 
         $requestBody = json_decode($request->getContent(), true);
 
+        $requestBranch = $this->recall->changeRequest();
+
         $entry = new Entry(
             $context,
             new Identifier(),
@@ -48,7 +50,8 @@ class PushController
         $savedEntry = $this->recall->addEntry(
             $entry,
             $user,
-            $description
+            $description,
+            $requestBranch
         );
 
         return json_encode(array(

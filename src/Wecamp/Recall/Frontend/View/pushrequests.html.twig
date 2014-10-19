@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Push requests{% endblock %}
+
+{% block content %}
+
+    <h1 class="page-header">Push requests</h1>
+
+    <div class="list-group timeline">
+        {% for pushrequest in pushrequests %}
+            <a href="#" class="list-group-item">
+                <div style="float:left;">
+                    <h4 class="list-group-item-heading">{{ pushrequest.event.description }}</h4><br />
+                    <span class="list-group-item-date" style="float: left;">{{ pushrequest.branch }}</span>
+                </div>
+                <div style="float: right">
+                    <form action="/pushrequest-accept/{{ pushrequest.branch }}" style="display: inline;">
+                    <input type="submit" class="btn btn-success btn-sm" value="Accept"/>
+                    </form>
+                    <form action="/pushrequest-deny/{{ pushrequest.branch }}" style="display: inline;">
+                    <input type="submit" class="btn btn-danger btn-sm" value="Deny"/>
+                    </form>
+                </div>
+                <div style="clear: both;"></div>
+            </a>
+        {% endfor %}
+    </div>
+
+{% endblock %}

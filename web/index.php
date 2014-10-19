@@ -32,6 +32,12 @@ $app['timeline.controller'] = $app->share(function() use ($app) {
     return $timelineController;
 });
 
+$app['pushrequest.controller'] = $app->share(function() use ($app) {
+    $timelineController = new \Wecamp\Recall\Frontend\Controller\PushRequestController($app['recall']);
+    $timelineController->setTemplate($app['twig']);
+    return $timelineController;
+});
+
 $app['entry.controller'] = $app->share(function() use ($app) {
     $eventController = new \Wecamp\Recall\Frontend\Controller\EntryController($app['recall']);
     $eventController->setTemplate($app['twig']);
@@ -55,6 +61,9 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Frontend routing
 $app->get('/', 'timeline.controller:listAction');
+$app->get('/pushrequests', 'pushrequest.controller:listAction');
+$app->get('/pushrequest-accept/{branch}', 'pushrequest.controller:acceptAction');
+$app->get('/pushrequest-deny/{branch}', 'pushrequest.controller:denyAction');
 $app->get('/entry/{contextName}/{entryIdentifier}', 'entry.controller:displayAction');
 
 // API routing

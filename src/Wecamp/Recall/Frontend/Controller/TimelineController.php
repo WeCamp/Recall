@@ -41,7 +41,8 @@ class TimelineController
             'timeline.html.twig',
             array(
                 'profile' => $profileData->getData(),
-                'timeline' => $timeline
+                'timeline' => $timeline,
+                'pushrequests' => $this->recall->listChangeRequests()
             )
         );
     }
